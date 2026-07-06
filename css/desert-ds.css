@@ -243,3 +243,9 @@
   --border-width-strong: 1.5px;
 }
 
+/* layout utilities — used by the nav on every page */
+.fx { display: flex; }
+.ac { align-items: center; }
+.jb { justify-content: space-between; }
+.gap24 { gap: 24px; }
+
