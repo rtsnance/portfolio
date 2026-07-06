@@ -1,31 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="night">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRE3GJ6DSF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BRE3GJ6DSF');
+  </script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Grailed case study — Ryan Nance</title>
 <meta name="description" content="Trust signals that closed the confidence gap on a resale marketplace.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Ryan Nance — Product Design">
-<meta property="og:title" content="Grailed case study — Ryan Nance">
-<meta property="og:description" content="Trust signals that closed the confidence gap on a resale marketplace.">
-<meta property="og:url" content="https://ryantnance.com/grailed.html">
-<meta property="og:image" content="https://ryantnance.com/assets/portrait.jpg">
-<meta property="og:image:width" content="2316">
-<meta property="og:image:height" content="2316">
-<meta property="og:image:alt" content="Ryan Nance">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Grailed case study — Ryan Nance">
-<meta name="twitter:description" content="Trust signals that closed the confidence gap on a resale marketplace.">
-<meta name="twitter:image" content="https://ryantnance.com/assets/portrait.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="css/desert-ds.css">
 <script>document.documentElement.dataset.theme=localStorage.getItem('rn-theme')||'night'</script>
 <style>
-
+.imgplaceholder{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--card);border:1px dashed var(--line);border-radius:8px;color:var(--faint);font-family:var(--font-mono);font-size:12px;line-height:1.6;min-height:220px}
 
 *{box-sizing:border-box}
 :root{--paper:var(--bg-page);--card:var(--bg-raised);--ink:var(--text-strong);--muted:var(--text-muted);--faint:var(--text-faint);--line:var(--border-strong);--hair:var(--border);--dark:var(--bg-sunk)}
@@ -35,8 +28,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);-webk
 .wrap{max-width:1180px;margin:0 auto;padding:0 44px}
 a{color:inherit}
 .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-.nav{padding:26px 0;border-bottom:1px solid var(--hair);position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.brand{font-size:15px;letter-spacing:.02em;font-weight:500;white-space:nowrap;text-decoration:none}
+.nav{padding:26px 0;border-bottom:1px solid var(--hair)}
+.brand{font-size:15px;letter-spacing:.02em;font-weight:500;text-decoration:none}
 .back{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;gap:9px;align-items:center}
 .back:hover{color:var(--ink)}
 .back .ar{transition:transform .25s ease}.back:hover .ar{transform:translateX(-4px)}
@@ -66,15 +59,15 @@ a{color:inherit}
 .outcomes{background:var(--dark);color:var(--text-strong);padding:96px 0}
 .outcomes .seclabel{color:var(--accent)}
 .oh2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-.015em;line-height:1.08;margin:26px 0 0;max-width:20ch;color:var(--text-strong)}
-.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-strong);border:1px solid var(--border-strong);margin-top:56px}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);margin-top:56px}
 .metric{background:var(--dark);padding:44px 32px 38px}
 .metricnum{font-family:var(--font-display);font-weight:600;font-size:clamp(48px,6vw,74px);letter-spacing:-.03em;line-height:.92;color:var(--text-strong)}
 .metricnum small{font-size:.42em;color:var(--accent);vertical-align:.35em;margin-left:4px;letter-spacing:0}
-.metriclabel{font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;color:var(--muted);margin-top:20px;line-height:1.5;text-transform:uppercase}
+.metriclabel{font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;color:rgba(244,241,234,.62);margin-top:20px;line-height:1.5;text-transform:uppercase}
 .shipped{margin-top:52px}
-.shipped .k{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.shipped .k{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.5);margin-bottom:16px}
 .shiplist{display:flex;flex-wrap:wrap;gap:10px}
-.shipitem{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--text-strong);border:1px solid var(--border-strong);border-radius:100px;padding:7px 15px}
+.shipitem{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--text-strong);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:7px 15px}
 .next{padding:70px 0;border-top:1px solid var(--ink)}
 .nextlink{display:flex;align-items:baseline;justify-content:space-between;gap:24px;text-decoration:none}
 .nextlabel{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
@@ -90,8 +83,8 @@ a{color:inherit}
 <header class="chead"><div class="wrap"><div class="eyebrow">Case Study 02 · Consumer Marketplace · 2022</div><h1 class="ctitle">Grailed</h1><p class="csummary">Redesigning the trust signals across listings and the path to purchase — closing the confidence gap upstream of checkout.</p><div class="metagrid"><div class="mg"><div class="mglabel">Role</div><div class="mgval">Director of Product Design<br>Set vision with executive leadership</div></div><div class="mg"><div class="mglabel">Timeline</div><div class="mgval">A few months, start to finish</div></div><div class="mg"><div class="mglabel">Platform</div><div class="mgval">Web &amp; mobile marketplace</div></div><div class="mg"><div class="mglabel">Team</div><div class="mgval">Led 5 product designers</div></div></div></div></header>
 <section class="sec"><div class="wrap"><div class="seclabel">01 — Context</div><div class="secgrid"><div class="sub">Where trust<br>lives</div><div><h2 class="h2">On a resale marketplace, trust is the real checkout.</h2><div class="prose"><p>Grailed is a resale marketplace for menswear and streetwear — where <strong>trust in an unknown seller and an unverified item</strong> is the main thing standing between browsing and buying, more than checkout mechanics themselves.</p></div></div></div></div></section>
 <section class="sec"><div class="wrap"><div class="seclabel">02 — Problem</div><div class="secgrid"><div class="sub">Hesitation,<br>upstream</div><div><h2 class="h2">Buyers were dropping off before checkout — the friction was confidence, not mechanics.</h2><div class="prose"><p>Buyers browsing higher‑value or higher‑intent listings were hesitating and dropping off before completing a purchase. The friction wasn't in the checkout flow itself — it was upstream: buyers didn't have enough confidence in the <strong>item's authenticity, condition, or the seller's reliability</strong> to commit.</p></div></div></div></div></section>
-<section class="sec"><div class="wrap"><div class="seclabel">03 — Process</div><div class="secgrid"><div class="sub">Focused, not<br>a redesign</div><div><h2 class="h2">A focused initiative on trust signals — and a team that leveled up running it.</h2><div class="prose"><p>I partnered with the executive leadership team to set product vision and strategic direction, then led a team of 5 designers through a focused, few‑month initiative concentrated on the <strong>trust signals surfaced across listing pages and the path to purchase</strong> &mdash; the Trust Banner, Trust Badge, and Trust Details &mdash; rather than a broad redesign.</p><p>Beyond the feature work itself, I used this period to formalize how the design team operated — mentoring designers on craft and establishing a repeatable approach for tackling ambiguous, trust‑driven problems rather than solving each one from scratch.</p></div><div class="gallery" style="--gh:300px"><div><img class="gimg" src="assets/grailed-listing.png" alt="Grailed listing page — seller verification, reviews, and buyer protection trust signals"><div class="gcap">Trust signals on the listing page</div></div><div><img class="gimg" src="assets/grailed-mobile-offer.png" alt="Grailed mobile — Make an Offer flow"><div class="gcap">Make an offer — the path to purchase, mobile</div></div></div></div></div></div></section>
-<section class="outcomes"><div class="wrap"><div class="seclabel">04 — Outcome</div><h2 class="oh2">Confidence upstream converted downstream.</h2><div class="metrics"><div class="metric"><div class="metricnum">+1.25<small>%</small></div><div class="metriclabel">Increase in conversion rate</div></div><div class="metric"><div class="metricnum">−3.13<small>%</small></div><div class="metriclabel">Reduction in abandoned carts</div></div></div><div class="shipped"><div class="k">What Shipped</div><div class="shiplist"><span class="shipitem">Trust Banner, Badge &amp; Details on listings</span><span class="shipitem">Confidence‑building path to purchase</span><span class="shipitem">Repeatable approach to trust problems</span><span class="shipitem">Design team practice &amp; mentorship</span></div></div></div></section>
+<section class="sec"><div class="wrap"><div class="seclabel">03 — Process</div><div class="secgrid"><div class="sub">Focused, not<br>a redesign</div><div><h2 class="h2">A focused initiative on trust signals — and a team that leveled up running it.</h2><div class="prose"><p>I partnered with the executive leadership team to set product vision and strategic direction, then led a team of 5 designers through a focused, few‑month initiative concentrated on the <strong>trust signals surfaced across listing pages and the path to purchase</strong>, rather than a broad redesign.</p><p>Beyond the feature work itself, I used this period to formalize how the design team operated — mentoring designers on craft and establishing a repeatable approach for tackling ambiguous, trust‑driven problems rather than solving each one from scratch.</p></div><div class="gallery" style="--gh:300px"><div><img class="gimg" src="assets/grailed-listing.png" alt="Grailed listing page — seller verification, reviews, and buyer protection trust signals"><div class="gcap">Trust signals on the listing page</div></div><div><img class="gimg" src="assets/grailed-mobile-offer.png" alt="Grailed mobile — Make an Offer flow"><div class="gcap">Make an offer — the path to purchase, mobile</div></div></div></div></div></div></section>
+<section class="outcomes"><div class="wrap"><div class="seclabel">04 — Outcome</div><h2 class="oh2">Confidence upstream converted downstream.</h2><div class="metrics"><div class="metric"><div class="metricnum">+1.25<small>%</small></div><div class="metriclabel">Increase in conversion rate</div></div><div class="metric"><div class="metricnum">−3.13<small>%</small></div><div class="metriclabel">Reduction in abandoned carts</div></div></div><div class="shipped"><div class="k">What Shipped</div><div class="shiplist"><span class="shipitem">Trust signals across listing pages</span><span class="shipitem">Confidence‑building path to purchase</span><span class="shipitem">Repeatable approach to trust problems</span><span class="shipitem">Design team practice &amp; mentorship</span></div></div></div></section>
 <nav class="next"><div class="wrap"><a class="nextlink" href="atom-tickets.html"><div><div class="nextlabel">Next</div><div class="nexttitle">Atom Tickets — A full app redesign</div></div><div class="nexttitle">→</div></a></div></nav>
 
 

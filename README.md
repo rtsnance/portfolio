@@ -14,9 +14,8 @@ Static site, no build step. Converted from the Claude Design handoff export into
 2. Pages build settings: no build command, output directory = `/` (root).
 3. Custom domain `ryantnance.com` should already be attached from the earlier setup.
 
-## Resolved (from the design handoff)
-- **About page portrait** — added as `assets/portrait.jpg`; `about.html` now uses `<img class="portrait">` with `object-fit: cover`.
-- **The Black Tux video** — was a Google Drive `/preview` link (broke for anonymous visitors); re-hosted on Vimeo and swapped to a `player.vimeo.com` embed. *Note: confirm the Vimeo video's privacy allows embedding on `ryantnance.com`.*
-- **Grailed case study** — the trust-signal feature is now named explicitly: the Trust Banner, Badge & Details.
-- **EDO hero image** — placeholder removed; the page runs header → Context with no hero image.
-- Unused `.imgplaceholder` CSS rule removed from all pages.
+## Known open items (carried over from the design handoff)
+- **About page portrait**: the image-slot in Claude Design had a photo dropped in, but it wasn't included in the export bundle. Add a real photo as `assets/portrait.jpg` and replace the dashed placeholder box in `about.html` with `<img class="portrait" src="assets/portrait.jpg" alt="Ryan Nance">`.
+- **EDO hero image**: same situation, no screenshot was ever added. Add one as `assets/edo-hero.png` and replace the placeholder in `edo.html`.
+- **EDO's embedded video** uses a Google Drive `/preview` link, which breaks for anonymous visitors. Re-host on Vimeo (like the other three case-study videos) and swap the iframe `src`.
+- **Grailed case study**: one line still has a bracketed note asking whether you want to name the specific trust-signal feature you shipped — optional, not blocking.
