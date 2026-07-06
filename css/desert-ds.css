@@ -1,0 +1,245 @@
+/* ============================================================
+   Desert Design System — flat stylesheet (all tokens inlined)
+   Link this one file. Provides the four palettes: default (Desert Day)
+   + data-theme="sunrise|sunset|night". No @import chain.
+   ============================================================ */
+
+/* ---- tokens/fonts.css ---- */
+/* Webfonts — loaded from Google Fonts.
+   NOTE: These are substitutions chosen to match a desert-editorial direction,
+   since the original Figma font files were not provided. Swap in the real
+   licensed files if/when available. See readme.md → Typography. */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Space+Mono:wght@400;700&display=swap');
+
+/* ---- tokens/colors.css ---- */
+/* ============================================================
+   COLORS — Desert Day palette
+   Joshua Tree at midday: a clear cerulean sky over sun-bleached
+   sand, with terracotta clay, desert sage, and golden ochre as
+   warm accents. Neutrals are warm (sand/ink), never cold grey.
+   ============================================================ */
+:root {
+  /* --- Sky (primary hue: clear desert azure) --- */
+  --sky-100: #D6EAF7;
+  --sky-300: #8CC4E6;
+  --sky-500: #3D93CE;
+  --sky-700: #1E6FA8;
+  --sky-900: #124B74;
+
+  /* --- Sand & Bone (sun-bleached ground) --- */
+  --bone:    #FCF7EC;
+  --sand-100: #F6ECD6;
+  --sand-300: #EBD7B3;
+  --sand-500: #D6BB85;
+  --sand-700: #B4975C;
+  --sand-900: #857038;
+
+  /* --- Clay / Terracotta (warm accent) --- */
+  --clay-300: #EBA07C;
+  --clay-500: #D06334;
+  --clay-700: #A9411F;
+
+  /* --- Sage / Desert scrub (support) --- */
+  --sage-300: #BFCE8C;
+  --sage-500: #8CA64E;
+  --sage-700: #5E7A32;
+
+  /* --- Ochre / Sun (highlight) --- */
+  --ochre-300: #F2CB74;
+  --ochre-500: #E5A82F;
+  --ochre-700: #BC7E13;
+
+  /* --- Ink (warm near-black neutrals) --- */
+  --ink-900: #292420;
+  --ink-700: #463F34;
+  --ink-500: #6E6555;
+  --ink-300: #9C917E;
+  --ink-100: #C9BFAD;
+
+  /* ---------- Semantic aliases ---------- */
+  --bg-page:    var(--bone);
+  --bg-raised:  #FDFAF3;
+  --bg-sunk:    var(--sand-100);
+  --bg-inverse: var(--ink-900);
+
+  --text-strong: var(--ink-900);
+  --text-body:   var(--ink-700);
+  --text-muted:  var(--ink-500);
+  --text-faint:  var(--ink-300);
+  --text-on-brand: var(--bone);
+
+  --brand:        var(--sky-700);
+  --brand-hover:  var(--sky-900);
+  --accent:       var(--clay-500);
+  --accent-hover: var(--clay-700);
+  --support:      var(--sage-500);
+  --highlight:    var(--ochre-500);
+
+  --border:        var(--sand-300);
+  --border-strong: var(--sand-500);
+  --divider:       var(--sand-100);
+
+  --link:       var(--sky-700);
+  --link-hover: var(--sky-900);
+  --focus-ring: var(--sky-500);
+
+  --success: var(--sage-700);
+  --warning: var(--ochre-700);
+  --danger:  var(--clay-700);
+}
+
+/* ============================================================
+   THEME SCOPES — the desert across a day.
+   Apply data-theme="sunrise|sunset|night" on any container;
+   semantic aliases below re-point so components re-theme with
+   no markup change. Desert Day is the default (:root above).
+   ============================================================ */
+
+/* ---------- SUNRISE — soft dawn: rose, apricot, periwinkle ---------- */
+[data-theme="sunrise"] {
+  --rose-300: #F3B2A0;  --rose-500: #E8846B;  --rose-700: #C25A44;
+  --apricot-300: #F8CE8E;  --apricot-500: #EEA94A;  --apricot-700: #D5871F;
+  --peri-300: #B9C2E6;  --peri-500: #8290CE;  --peri-700: #5A69B0;
+  --blush-100: #FBEFE6;  --blush-300: #F3DED0;  --blush-500: #E4C4B0;
+  --plum-900: #382B2E;  --plum-700: #574549;
+
+  --bg-page: #FBF1EA;  --bg-raised: #FFF8F2;  --bg-sunk: #F5E4D9;  --bg-inverse: #382B2E;
+  --text-strong: #382B2E;  --text-body: #574549;  --text-muted: #8A7076;  --text-faint: #B49AA0;  --text-on-brand: #FFF8F2;
+  --brand: #C25A44;  --brand-hover: #A6472F;  --accent: #D5871F;  --support: #5A69B0;  --highlight: #F8CE8E;
+  --border: #F0D8C8;  --border-strong: #E4C4B0;  --divider: #F5E4D9;
+  --link: #5A69B0;  --link-hover: #43539A;  --focus-ring: #8290CE;
+  --success: #5E7A32;  --warning: #D5871F;  --danger: #C25A44;
+}
+
+/* ---------- SUNSET — dusk fire: burnt orange, magenta, dusk purple ---------- */
+[data-theme="sunset"] {
+  --burn-300: #F0A968;  --burn-500: #DD7226;  --burn-700: #B4530F;
+  --magenta-300: #DD86A0;  --magenta-500: #C64A6E;  --magenta-700: #9E3050;
+  --dusk-300: #9A7BAC;  --dusk-500: #6E4A82;  --dusk-700: #4A2F5C;
+  --gold-300: #F4C878;  --gold-500: #E6A430;  --gold-700: #BE7F17;
+  --peach-100: #FBEADF;  --peach-300: #F5D2BE;  --peach-500: #E7B79C;
+  --aubergine-900: #2E2228;  --aubergine-700: #4A3742;
+
+  --bg-page: #FBEADF;  --bg-raised: #FFF4EC;  --bg-sunk: #F5D8C7;  --bg-inverse: #2E2228;
+  --text-strong: #2E2228;  --text-body: #4A3742;  --text-muted: #7C6169;  --text-faint: #AD8E96;  --text-on-brand: #FFF4EC;
+  --brand: #DD7226;  --brand-hover: #B4530F;  --accent: #C64A6E;  --support: #6E4A82;  --highlight: #F4C878;
+  --border: #F0CDB8;  --border-strong: #E7B79C;  --divider: #F5D8C7;
+  --link: #C64A6E;  --link-hover: #9E3050;  --focus-ring: #DD7226;
+  --success: #5E7A32;  --warning: #E6A430;  --danger: #B4530F;
+}
+
+/* ---------- STARRY NIGHT — dark theme: indigo sky, star gold, moonlit teal ---------- */
+[data-theme="night"] {
+  --indigo-300: #8B9AD1;  --indigo-500: #4E5FA6;  --indigo-700: #2E3A72;
+  --star-300: #F0D89A;  --star-500: #E8C877;  --star-700: #C9A44E;
+  --teal-300: #8FC4BC;  --teal-500: #5F9A90;  --teal-700: #3E6E66;
+  --moon-sand: #C9C3B4;
+  --night-950: #0E1024;  --night-900: #14162E;  --night-800: #1E2240;  --night-700: #2E3358;
+
+  --bg-page: #14162E;  --bg-raised: #1E2240;  --bg-sunk: #0E1024;  --bg-inverse: #EDEBF6;
+  --text-strong: #F2F0FA;  --text-body: #D2D2E6;  --text-muted: #9FA0C0;  --text-faint: #6E6F94;  --text-on-brand: #14162E;
+  --brand: #7C8FD6;  --brand-hover: #9DAAE4;  --accent: #E8C877;  --support: #5F9A90;  --highlight: #E8C877;
+  --border: #2E3358;  --border-strong: #434974;  --divider: #23274A;
+  --link: #9DAAE4;  --link-hover: #B8C2EE;  --focus-ring: #7C8FD6;
+  --success: #5F9A90;  --warning: #E8C877;  --danger: #DD7A6E;
+}
+
+/* ---- tokens/typography.css ---- */
+/* ============================================================
+   TYPOGRAPHY
+   Display  — Cormorant Garamond: high-contrast editorial serif,
+              gallery-label elegance for names, titles, pull quotes.
+   Body     — Mulish: warm humanist sans, calm and readable.
+   Mono     — Space Mono: field-notes / map-coordinate labels,
+              always uppercase with wide tracking.
+   ============================================================ */
+:root {
+  --font-display: "Cormorant Garamond", "Hoefler Text", Georgia, serif;
+  --font-body:    "Mulish", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "Space Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /* type scale */
+  --text-xs:  12px;
+  --text-sm:  14px;
+  --text-base:16px;
+  --text-md:  18px;
+  --text-lg:  22px;
+  --text-xl:  28px;
+  --text-2xl: 36px;
+  --text-3xl: 48px;
+  --text-4xl: 64px;
+  --text-5xl: 88px;
+
+  /* line-height */
+  --leading-tight:   1.05;
+  --leading-snug:    1.2;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+
+  /* letter-spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-label:  0.18em;
+
+  /* semantic roles */
+  --title-font: var(--font-display);
+  --title-weight: var(--fw-semibold);
+  --title-leading: var(--leading-tight);
+
+  --body-font: var(--font-body);
+  --body-weight: var(--fw-regular);
+  --body-leading: var(--leading-relaxed);
+
+  --label-font: var(--font-mono);
+  --label-weight: var(--fw-regular);
+  --label-tracking: var(--tracking-label);
+}
+
+/* ---- tokens/spacing.css ---- */
+/* ============================================================
+   SPACING, RADII, ELEVATION
+   4px base grid. Radii are soft but restrained. Shadows are
+   warm-tinted (desert light), never neutral grey.
+   ============================================================ */
+:root {
+  /* spacing — 4px base */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* radii */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* elevation — warm brown-tinted shadows */
+  --shadow-sm: 0 1px 2px rgba(74,63,52,0.08), 0 1px 3px rgba(74,63,52,0.06);
+  --shadow-md: 0 4px 12px rgba(74,63,52,0.10), 0 2px 4px rgba(74,63,52,0.06);
+  --shadow-lg: 0 18px 40px rgba(74,63,52,0.14), 0 6px 12px rgba(74,63,52,0.08);
+  --shadow-inset: inset 0 1px 2px rgba(74,63,52,0.09);
+
+  /* borders */
+  --border-width: 1px;
+  --border-width-strong: 1.5px;
+}
+

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ryan Nance — Product Design Leadership</title>
+<meta name="description" content="Product design leader with 20+ years building teams, systems, and 0-to-1 experiences for marketplace, e-commerce, and SaaS/analytics products.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/desert-ds.css">
+<script>document.documentElement.dataset.theme=localStorage.getItem('rn-theme')||'night'</script>
+<style>
+.imgplaceholder{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--card);border:1px dashed var(--line);border-radius:8px;color:var(--faint);font-family:var(--font-mono);font-size:12px;line-height:1.6;min-height:220px}
+
+*{box-sizing:border-box}
+:root{--paper:var(--bg-page);--card:var(--bg-raised);--ink:var(--text-strong);--muted:var(--text-muted);--faint:var(--text-faint);--line:var(--border-strong);--hair:var(--border)}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.6}
+.serif{font-family:var(--font-display);font-weight:400;letter-spacing:-.01em}
+.mono{font-family:var(--font-mono)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+a{color:inherit}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+/* nav */
+.nav{padding:26px 0;border-bottom:1px solid var(--hair)}
+.brand{font-size:15px;letter-spacing:.02em;font-weight:500}
+.navlinks{display:flex;gap:30px}
+.navlink{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding-bottom:2px;border-bottom:1px solid transparent}
+.navlink:hover{color:var(--ink);border-color:var(--ink)}
+.tswitch{display:flex;align-items:center;gap:9px}
+.tdot{width:15px;height:15px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0}
+.tdot.on{box-shadow:0 0 0 2px var(--paper),0 0 0 3.5px var(--accent)}
+/* hero */
+.hero{padding:112px 0 96px;border-bottom:1px solid var(--hair)}
+[data-theme="night"] .hero{background:radial-gradient(1.6px 1.6px at 12% 18%,rgba(240,216,154,.9) 50%,transparent 51%),radial-gradient(1.2px 1.2px at 28% 62%,rgba(240,216,154,.5) 50%,transparent 51%),radial-gradient(1.8px 1.8px at 44% 28%,rgba(240,216,154,.75) 50%,transparent 51%),radial-gradient(1.2px 1.2px at 58% 72%,rgba(240,216,154,.45) 50%,transparent 51%),radial-gradient(1.6px 1.6px at 71% 20%,rgba(240,216,154,.85) 50%,transparent 51%),radial-gradient(1.2px 1.2px at 84% 54%,rgba(240,216,154,.5) 50%,transparent 51%),radial-gradient(1.8px 1.8px at 93% 32%,rgba(240,216,154,.7) 50%,transparent 51%),linear-gradient(180deg,#0E1024 0%,#14162E 100%)}
+.h-lead{font-family:var(--font-display);font-weight:400;letter-spacing:-.018em;line-height:1.06;font-size:clamp(38px,5.4vw,68px);max-width:15.5ch;margin:26px 0 0}
+.h-lead em{font-style:italic;color:var(--accent)}
+.h-sub{max-width:56ch;margin:36px 0 0;color:var(--text-body);font-size:19px;line-height:1.62}
+.metarow{display:flex;flex-wrap:wrap;gap:52px;margin-top:52px;padding-top:30px;border-top:1px solid var(--hair)}
+.metacol{display:flex;flex-direction:column;gap:7px}
+.metalabel{font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.metaval{font-size:15px;color:var(--text-body);max-width:30ch}
+/* section head */
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:78px 0 8px}
+.sectitle{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.seccount{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:var(--faint)}
+/* case rows */
+.case{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid var(--line)}
+.case.flip .cimg,.case.flip .logocard{order:2}
+.cimg{width:100%;aspect-ratio:4/3;--r:6px;object-fit:cover;border-radius:6px}
+.logocard{width:100%;aspect-ratio:4/3;background:#fff;border-radius:6px;border:1px solid var(--hair);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logovid{width:72%;height:72%;object-fit:contain}
+.logoimg{width:70%;height:auto;object-fit:contain}
+.cbody{max-width:40ch}
+.cnum{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;color:var(--faint)}
+.ctitle{font-family:var(--font-display);font-weight:400;letter-spacing:-.015em;font-size:clamp(30px,3.6vw,44px);line-height:1.04;margin:16px 0 0}
+.cdesc{color:var(--text-body);margin:16px 0 0;font-size:17px;line-height:1.55;max-width:34ch}
+.cmetric{display:flex;align-items:baseline;gap:14px;margin:26px 0 0;padding-top:22px;border-top:1px solid var(--hair)}
+.cmnum{font-family:var(--font-display);font-size:40px;font-weight:400;letter-spacing:-.02em;color:var(--accent);line-height:1}
+.cmlabel{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.4;max-width:16ch}
+.ctags{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0}
+.tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:5px 12px}
+.clink{display:inline-flex;align-items:center;gap:10px;margin-top:30px;font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:4px}
+.clink .ar{transition:transform .25s ease}
+.clink:hover .ar{transform:translateX(5px)}
+.csoon{margin-top:30px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+/* writing */
+.wrow{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-top:1px solid var(--hair);text-decoration:none}
+.wrow:hover .wtitle{color:var(--accent)}
+.wtitle{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em;font-size:24px;line-height:1.2}
+.wmeta{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.war{font-family:var(--font-mono);font-size:13px;color:var(--faint)}
+/* video & demos */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:40px 0 8px}
+.vembed{width:100%;aspect-ratio:16/9;border:0;border-radius:6px;display:block;background:var(--card)}
+.vtitle{font-family:var(--font-display);font-weight:600;letter-spacing:-.01em;font-size:22px;line-height:1.2;margin-top:20px}
+.vmeta{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+@media(max-width:820px){.vgrid{grid-template-columns:1fr}}
+/* about */
+.about{padding:96px 0;border-top:1px solid var(--line);margin-top:36px;display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px}
+.aboutlead{font-family:var(--font-display);font-weight:400;letter-spacing:-.015em;font-size:clamp(26px,3vw,36px);line-height:1.16;max-width:16ch}
+.abouttext{color:var(--text-body);font-size:17px;line-height:1.66;max-width:52ch}
+.abouttext p{margin:0 0 18px}
+.factgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;margin-top:34px;padding-top:30px;border-top:1px solid var(--hair)}
+.fact{display:flex;flex-direction:column;gap:6px}
+.factnum{font-family:var(--font-display);font-size:30px;color:var(--ink);letter-spacing:-.02em}
+.factlabel{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+/* testimonials */
+.tsec{padding:96px 0;border-top:1px solid var(--line)}
+.tgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:44px}
+.tcard{background:var(--paper);padding:36px 32px 32px;display:flex;flex-direction:column;gap:28px}
+.tmark{font-family:var(--font-display);font-size:44px;line-height:.6;color:var(--accent)}
+.tquote{font-family:var(--font-display);font-weight:500;letter-spacing:-.01em;font-size:21px;line-height:1.38;margin:0;flex:1}
+.tcard.tspan{grid-column:1/-1}
+.tperson{display:flex;align-items:center;gap:14px;padding-top:22px;border-top:1px solid var(--hair)}
+.tface{width:48px;height:48px;flex-shrink:0;border-radius:50%;object-fit:cover}
+.tname{font-size:15px;font-weight:600}
+.ttitle{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px;line-height:1.5}
+@media(max-width:820px){.tgrid{grid-template-columns:1fr}}
+/* footer */
+.foot{border-top:1px solid var(--ink);padding:76px 0 60px}
+.footlead{font-family:var(--font-display);font-weight:400;font-size:clamp(30px,4.2vw,54px);letter-spacing:-.02em;line-height:1.05;max-width:18ch}
+.footlead a{color:var(--accent);text-decoration:none;border-bottom:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.footlead a:hover{border-color:var(--accent)}
+.footrow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-top:56px;padding-top:26px;border-top:1px solid var(--hair)}
+.footlinks{display:flex;gap:28px;flex-wrap:wrap}
+.footlink{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.footlink:hover{color:var(--ink)}
+.footmeta{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;color:var(--faint)}
+@media(max-width:820px){.wrap{padding:0 24px}.case{grid-template-columns:1fr;gap:28px}.case.flip .cimg,.case.flip .logocard{order:0}.about{grid-template-columns:1fr;gap:32px}.metarow{gap:32px}.navlinks{gap:18px}}
+.h-lead,.ctitle,.cmnum,.aboutlead,.footlead,.factnum{font-weight:600}
+
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="wrap fx ac jb"><div class="brand">Ryan Nance</div><div class="fx ac gap24"><nav class="navlinks"><a class="navlink" href="#work">Work</a><a class="navlink" href="about.html">About</a><a class="navlink" href="#contact">Contact</a></nav><div class="tswitch"><button class="tdot" data-theme-btn="day" title="Desert Day" style="background:linear-gradient(135deg, #FCF7EC 50%, #D06334 50%)"></button><button class="tdot" data-theme-btn="sunrise" title="Sunrise" style="background:linear-gradient(135deg, #FBF1EA 50%, #D5871F 50%)"></button><button class="tdot" data-theme-btn="sunset" title="Sunset" style="background:linear-gradient(135deg, #FBEADF 50%, #C64A6E 50%)"></button><button class="tdot" data-theme-btn="night" title="Night" style="background:linear-gradient(135deg, #14162E 50%, #E8C877 50%)"></button></div></div></div></div>
+
+<header class="hero"><div class="wrap"><div class="eyebrow">Product Design Leadership · 20+ Years</div><h1 class="h-lead" style="max-width:21ch">I lead product design for marketplace and analytics products &mdash; building the teams, <em>systems</em>, and zero-to-one experiences that move the metrics a business runs on.</h1><p class="h-sub">Two decades shipping consumer marketplace, e‑commerce, and SaaS/analytics products from first concept to scale. I build and lead design teams, establish design systems, and drive full redesigns measured in conversion, retention, and revenue — not just craft.</p><div class="metarow"><div class="metacol"><div class="metalabel">Currently</div><div class="metaval">Principal Product Designer, SigmaSight</div></div><div class="metacol"><div class="metalabel">Previously</div><div class="metaval">Director of Product Design, Grailed · The Black Tux · EDO · Atom Tickets</div></div><div class="metacol"><div class="metalabel">Focus</div><div class="metaval">0→1 · Design Systems · Marketplace &amp; SaaS · Team Leadership</div></div></div></div></header>
+
+<main id="work"><div class="wrap"><div class="sechead"><div class="sectitle">Selected Work</div><div class="seccount">Five case studies</div></div>
+
+<article class="case"><div class="logocard"><img class="logoimg" src="assets/sigmasight-logo.png" alt="SigmaSight logo"></div><div class="cbody"><div class="cnum">01 — SigmaSight</div><h3 class="ctitle">IA and a design system for trial‑risk analytics</h3><p class="cdesc">As first product designer, defined the information architecture and built the design system an AI legal‑tech platform now scales on.</p><div class="cmetric"><div class="cmnum">0→1</div><div class="cmlabel">Design foundation the platform builds on today</div></div><div class="ctags"><span class="tag">SaaS / Legal‑Tech</span><span class="tag">Design Systems</span><span class="tag">IA &amp; Research</span></div><a class="clink" href="sigmasight.html">Read the case study <span class="ar">→</span></a></div></article>
+
+<article class="case flip"><div class="logocard"><video class="logovid" src="assets/logo.webm" autoplay loop muted playsinline></video></div><div class="cbody"><div class="cnum">02 — Grailed</div><h3 class="ctitle">Trust signals that closed the confidence gap</h3><p class="cdesc">Led 5 designers through a focused initiative on the trust signals across listings and the path to purchase on the resale marketplace.</p><div class="cmetric"><div class="cmnum">+1.25%</div><div class="cmlabel">Increase in conversion rate</div></div><div class="ctags"><span class="tag">Consumer Marketplace</span><span class="tag">Team Leadership</span><span class="tag">Web &amp; Mobile</span></div><a class="clink" href="grailed.html">Read the case study <span class="ar">→</span></a></div></article>
+
+<article class="case"><img class="cimg" src="assets/logo-atom.png" alt="Atom Tickets logo"><div class="cbody"><div class="cnum">03 — Atom Tickets</div><h3 class="ctitle">A full app redesign built to convert and retain</h3><p class="cdesc">Led a 13‑month, iOS &amp; Android redesign of the movie‑ticketing app — from root‑cause research through every shipped screen.</p><div class="cmetric"><div class="cmnum">+18.25%</div><div class="cmlabel">Increase in checkouts, first quarter</div></div><div class="ctags"><span class="tag">0→1</span><span class="tag">Consumer Marketplace</span><span class="tag">iOS &amp; Android</span></div><a class="clink" href="atom-tickets.html">Read the case study <span class="ar">→</span></a></div></article>
+
+<article class="case flip"><img class="cimg" src="assets/logo-edo.png" alt="EDO logo"><div class="cbody"><div class="cnum">04 — EDO</div><h3 class="ctitle">Query controls, redesigned for an analytics dashboard</h3><p class="cdesc">Rebuilt the query‑control system for a TV‑analytics platform so pre‑configured views and adaptive filters could scale with the product.</p><div class="cmetric"><div class="cmnum">+30%</div><div class="cmlabel">More interaction with query controls</div></div><div class="ctags"><span class="tag">SaaS / Analytics</span><span class="tag">Design Systems</span><span class="tag">Design Management</span></div><a class="clink" href="edo.html">Read the case study <span class="ar">→</span></a></div></article>
+
+<article class="case"><img class="cimg" src="assets/logo-tbt.png" alt="The Black Tux logo"><div class="cbody"><div class="cnum">05 — The Black Tux</div><h3 class="ctitle">Rebuilding the primary e‑commerce funnel</h3><p class="cdesc">As Head of Product Design, led a team of three through a funnel rebuild spanning decision architecture, funnel mechanics, and party building.</p><div class="cmetric"><div class="cmnum">+14.2%</div><div class="cmlabel">Conversion rate lift in A/B of the MVP</div></div><div class="ctags"><span class="tag">E‑commerce</span><span class="tag">Team Leadership</span><span class="tag">Design Systems</span></div><a class="clink" href="the-black-tux.html">Read the case study <span class="ar">→</span></a></div></article>
+
+<div class="sechead"><div class="sectitle">Writing</div><div class="seccount">Writings &amp; ideas</div></div>
+<a class="wrow" href="https://userexperiences.co/designing-by-hand-in-the-digital-age-ad3e1ed90ce9" target="_blank"><div><div class="wtitle">Designing By Hand in the Digital Age</div><div class="wmeta">Pencil first. Pixel later. The tools and tips for great sketches.</div></div><span class="war">→</span></a>
+<a class="wrow" href="https://userexperiences.co/clarity-in-the-details-design-ui-with-more-dimensions-ae1fa1473863" target="_blank"><div><div class="wtitle">Clarity in the Details: Design UI with More Dimensions</div><div class="wmeta">Information as all the differences that make a difference</div></div><span class="war">→</span></a>
+<a class="wrow" href="https://userexperiences.co/design-ui-don-t-punish-the-humans-53807f955517" target="_blank"><div><div class="wtitle">Design UI: Don’t Punish The Humans</div><div class="wmeta">Remember the limits of human memory</div></div><span class="war">→</span></a>
+<a class="wrow" href="https://userexperiences.co/design-ui-for-recognition-more-than-for-reading-35ce510b0221" target="_blank"><div><div class="wtitle">Design UI for Recognition More than for Reading</div><div class="wmeta">“Your brain knows the shape of the word.”</div></div><span class="war">→</span></a>
+
+<div class="sechead" style="padding-top:64px"><div class="sectitle">Video &amp; Demos</div><div class="seccount">Talks · walkthroughs · prototypes</div></div>
+<div class="vgrid"><div><iframe class="vembed" src="https://player.vimeo.com/video/8370405" allow="fullscreen; picture-in-picture" allowfullscreen title="Vimeo video 1"></iframe><div class="vtitle">Digital Service Design</div><div class="vmeta">Talk · VisitFlorida Marketing Retreat</div></div><div><iframe class="vembed" src="https://player.vimeo.com/video/136063359" allow="fullscreen; picture-in-picture" allowfullscreen title="Vimeo video 2"></iframe><div class="vtitle">Design Process for the Digital Closet on Tradesy</div><div class="vmeta">UnCubed Lesson · Trailer</div></div><div><iframe class="vembed" src="https://player.vimeo.com/video/237629310" allow="fullscreen; picture-in-picture" allowfullscreen title="Vimeo video 3"></iframe><div class="vtitle">The New Atom App</div><div class="vmeta">App Demo · Atom Tickets</div></div><div><iframe class="vembed" src="https://player.vimeo.com/video/57102212" allow="fullscreen; picture-in-picture" allowfullscreen title="Vimeo video 4"></iframe><div class="vtitle">The New SKYE Mobile App</div><div class="vmeta">App Demo · SKYE Weather + Photo</div></div></div>
+</div></main>
+
+<section id="about"><div class="wrap about"><div><div class="eyebrow" style="margin-bottom:18px">About</div><h2 class="aboutlead">Three disciplines, one practice: language, structure, and outcomes.</h2></div><div><div class="abouttext"><p>I came to product design through writing, linguistics, architecture, and fine arts — a background that shows up as a bias toward clarity, systems thinking, and a strong point of view. Before design, I taught for eight years and edited for four.</p><p>Across twenty‑plus years I've led design at consumer marketplaces, e‑commerce, and analytics SaaS: setting strategy with the C‑suite, building and mentoring teams, standing up design systems, and running research that changes what gets built. I'm looking for Director and Principal roles where design is measured by the business it moves.</p></div><div class="factgrid"><div class="fact"><div class="factnum">21 yrs</div><div class="factlabel">Experience Design</div></div><div class="fact"><div class="factnum">C‑suite</div><div class="factlabel">Strategy Partner</div></div><div class="fact"><div class="factnum">Teams</div><div class="factlabel">Built &amp; Led at Scale</div></div><div class="fact"><div class="factnum">0→1</div><div class="factlabel">Concept to Ship</div></div></div></div></div></section>
+
+<section id="testimonials" class="tsec"><div class="wrap"><div class="sectitle">What Colleagues Say</div><div class="tgrid"><figure class="tcard m0"><div class="tmark">“</div><blockquote class="tquote m0">I loved his design process — the best I have worked with in my professional career. He strikes a great balance between exploration and execution. Ryan is a person I would love to work with again in any capacity.</blockquote><figcaption class="tperson"><img class="tface" src="assets/alex.webp" alt="Alex Powell"><div><div class="tname">Alex Powell</div><div class="ttitle">Academy Award-winning Software Architect</div></div></figcaption></figure><figure class="tcard m0"><div class="tmark">“</div><blockquote class="tquote m0">A true systems designer, Ryan was able to help me and the engineering team build usable and delightful solutions for our users — helping folks not only understand what they wanted but why they wanted it.</blockquote><figcaption class="tperson"><img class="tface" src="assets/adrian.webp" alt="Adrian Phillips"><div><div class="tname">Adrian Phillips</div><div class="ttitle">Product Design Leadership, Asana</div></div></figcaption></figure><figure class="tcard m0"><div class="tmark">“</div><blockquote class="tquote m0">A super talented design leader with an ability to communicate and align teams around solving hard problems. He asks great questions to get to a solid understanding of mental model and UX which produce the right UI solutions.</blockquote><figcaption class="tperson"><img class="tface" src="assets/brent.webp" alt="Brent Akamine"><div><div class="tname">Brent Akamine</div><div class="ttitle">Co-Founder, Vinovest</div></div></figcaption></figure><figure class="tcard m0"><div class="tmark">“</div><blockquote class="tquote m0">His design work was fantastic — even when sketched on a bar napkin — but it was his wisdom and insight that we appreciated the most. The most common solution to the problems we encountered was a phone call to Ryan.</blockquote><figcaption class="tperson"><img class="tface" src="assets/john.webp" alt="John Burge"><div><div class="tname">John Burge</div><div class="ttitle">CEO, SigmaSight.ai</div></div></figcaption></figure></div></div></section>
+
+<footer id="contact" class="foot"><div class="wrap"><h2 class="footlead">Available for Director &amp; Principal Product Design roles. <a href="mailto:rtsnance@gmail.com">Get in touch →</a></h2><div class="footrow"><div class="footlinks"><a class="footlink" href="mailto:rtsnance@gmail.com">Email</a><a class="footlink" href="Ryan_Nance_Lead_Product_Designer_CV.pdf" target="_blank">Résumé</a><a class="footlink" href="https://www.linkedin.com/in/ryantnance" target="_blank">LinkedIn</a><a class="footlink" href="https://5thingsilearnedtoday.com/portfolio" target="_blank">5thingsilearnedtoday.com</a></div><div class="footmeta">© 2026 Ryan Nance — Product Design</div></div></div></footer>
+
+
+<script src="js/site.js" defer></script>
+</body>
+</html>
