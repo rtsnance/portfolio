@@ -249,3 +249,20 @@
 .jb { justify-content: space-between; }
 .gap24 { gap: 24px; }
 
+/* nav row: align the brand to the links' text baseline, not box centers.
+   The right-hand group keeps .ac internally so the theme dots stay
+   vertically centered against the link text. */
+.nav .wrap { align-items: baseline; }
+
+/* compact nav below 480px — the full-size row needs ~400px of content.
+   Scoped under .nav so these outrank the page <style> blocks, which
+   load after this sheet. */
+@media (max-width: 479px) {
+  .nav .brand { font-size: 13.5px; }
+  .nav .gap24 { gap: 10px; }
+  .nav .navlinks { gap: 10px; }
+  .nav .navlink, .nav .back { font-size: 10.5px; letter-spacing: .03em; }
+  .nav .tswitch { gap: 5px; }
+  .nav .tdot { width: 12px; height: 12px; }
+}
+
