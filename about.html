@@ -9,16 +9,31 @@
     gtag('js', new Date());
     gtag('config', 'G-BRE3GJ6DSF');
   </script>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About — Ryan Nance</title>
 <meta name="description" content="A designer who came to product through language, and stayed for the systems.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ryan Nance — Product Design">
+<meta property="og:title" content="About — Ryan Nance">
+<meta property="og:description" content="A designer who came to product through language, and stayed for the systems.">
+<meta property="og:url" content="https://ryantnance.com/about.html">
+<meta property="og:image" content="https://ryantnance.com/assets/portrait.jpg">
+<meta property="og:image:width" content="2316">
+<meta property="og:image:height" content="2316">
+<meta property="og:image:alt" content="Ryan Nance">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="About — Ryan Nance">
+<meta name="twitter:description" content="A designer who came to product through language, and stayed for the systems.">
+<meta name="twitter:image" content="https://ryantnance.com/assets/portrait.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="css/desert-ds.css">
 <script>document.documentElement.dataset.theme=localStorage.getItem('rn-theme')||'night'</script>
 <style>
-.imgplaceholder{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--card);border:1px dashed var(--line);border-radius:8px;color:var(--faint);font-family:var(--font-mono);font-size:12px;line-height:1.6;min-height:220px}
+
 
 *{box-sizing:border-box}
 :root{--paper:var(--bg-page);--card:var(--bg-raised);--ink:var(--text-strong);--muted:var(--text-muted);--faint:var(--text-faint);--line:var(--border-strong);--hair:var(--border)}
@@ -28,8 +43,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);-webk
 .wrap{max-width:1180px;margin:0 auto;padding:0 44px}
 a{color:inherit}
 .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-.nav{padding:26px 0;border-bottom:1px solid var(--hair)}
-.brand{font-size:15px;letter-spacing:.02em;font-weight:500;text-decoration:none}
+.nav{padding:26px 0;border-bottom:1px solid var(--hair);position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.brand{font-size:15px;letter-spacing:.02em;font-weight:500;white-space:nowrap;text-decoration:none}
 .back{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;gap:9px;align-items:center}
 .back:hover{color:var(--ink)}
 .back .ar{transition:transform .25s ease}.back:hover .ar{transform:translateX(-4px)}
@@ -41,7 +56,7 @@ a{color:inherit}
 .headgrid{display:grid;grid-template-columns:1.35fr .65fr;gap:72px;align-items:center}
 .h-lead{font-family:var(--font-display);font-weight:600;letter-spacing:-.018em;line-height:1.06;font-size:clamp(36px,4.8vw,60px);margin:24px 0 0;max-width:17ch}
 .h-lead em{font-style:italic;color:var(--accent)}
-.portrait{width:100%;aspect-ratio:4/5;--r:8px}
+.portrait{width:100%;aspect-ratio:4/5;--r:8px;object-fit:cover;object-position:center 30%;border-radius:8px;display:block}
 .sec{padding:78px 0;border-top:1px solid var(--hair)}
 .sec.first{border-top:none}
 .seclabel{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
@@ -87,7 +102,7 @@ a{color:inherit}
 
 <div class="nav"><div class="wrap fx ac jb"><a class="brand" href="index.html">Ryan Nance</a><div class="fx ac gap24"><a class="back" href="index.html"><span class="ar">←</span> Home</a><div class="tswitch"><button class="tdot" data-theme-btn="day" title="Desert Day" style="background:linear-gradient(135deg, #FCF7EC 50%, #D06334 50%)"></button><button class="tdot" data-theme-btn="sunrise" title="Sunrise" style="background:linear-gradient(135deg, #FBF1EA 50%, #D5871F 50%)"></button><button class="tdot" data-theme-btn="sunset" title="Sunset" style="background:linear-gradient(135deg, #FBEADF 50%, #C64A6E 50%)"></button><button class="tdot" data-theme-btn="night" title="Night" style="background:linear-gradient(135deg, #14162E 50%, #E8C877 50%)"></button></div></div></div></div>
 
-<header class="chead"><div class="wrap headgrid"><div><div class="eyebrow">About</div><h1 class="h-lead" style="max-width:19ch">A designer who came to product through <em>language</em> &mdash; and stayed for the systems.</h1></div><div class="portrait imgplaceholder" aria-hidden="true"><span>Add portrait photo<br>(assets/portrait.jpg)</span></div></div></header>
+<header class="chead"><div class="wrap headgrid"><div><div class="eyebrow">About</div><h1 class="h-lead" style="max-width:19ch">A designer who came to product through <em>language</em> &mdash; and stayed for the systems.</h1></div><img class="portrait" src="assets/portrait.jpg" alt="Ryan Nance"></div></header>
 
 <section class="sec first"><div class="wrap"><div class="seclabel">01 — The Path</div><div class="secgrid"><div class="sub">Writing, teaching,<br>then design</div><div><h2 class="h2">Twenty‑one years of experience design, built on a decade of words.</h2><div class="prose"><p>My background spans writing, linguistics, architecture, fine arts, and literature. Before design, I <strong>taught for eight years and edited for four</strong> — work that shaped how I practice: a bias toward clarity, an ear for how people actually talk about what they need, and the patience to build understanding before building screens.</p><p>For the last twenty‑one years I've been an experience designer — a creative problem solver with the ability to articulate, clearly and compellingly, a vision of a surprising and successful user experience.</p><p>Across consumer marketplaces, e‑commerce, and analytics SaaS, I've set strategy with C‑suites, built and mentored teams, stood up design systems, and run the research that changes what gets built.</p></div></div></div></div></section>
 

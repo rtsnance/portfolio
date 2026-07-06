@@ -9,16 +9,31 @@
     gtag('js', new Date());
     gtag('config', 'G-BRE3GJ6DSF');
   </script>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SigmaSight case study — Ryan Nance</title>
 <meta name="description" content="IA and a design system for an AI-powered trial-risk analytics platform.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ryan Nance — Product Design">
+<meta property="og:title" content="SigmaSight case study — Ryan Nance">
+<meta property="og:description" content="IA and a design system for an AI-powered trial-risk analytics platform.">
+<meta property="og:url" content="https://ryantnance.com/sigmasight.html">
+<meta property="og:image" content="https://ryantnance.com/assets/portrait.jpg">
+<meta property="og:image:width" content="2316">
+<meta property="og:image:height" content="2316">
+<meta property="og:image:alt" content="Ryan Nance">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SigmaSight case study — Ryan Nance">
+<meta name="twitter:description" content="IA and a design system for an AI-powered trial-risk analytics platform.">
+<meta name="twitter:image" content="https://ryantnance.com/assets/portrait.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="css/desert-ds.css">
 <script>document.documentElement.dataset.theme=localStorage.getItem('rn-theme')||'night'</script>
 <style>
-.imgplaceholder{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--card);border:1px dashed var(--line);border-radius:8px;color:var(--faint);font-family:var(--font-mono);font-size:12px;line-height:1.6;min-height:220px}
+
 
 *{box-sizing:border-box}
 :root{--paper:var(--bg-page);--card:var(--bg-raised);--ink:var(--text-strong);--muted:var(--text-muted);--faint:var(--text-faint);--line:var(--border-strong);--hair:var(--border);--dark:var(--bg-sunk)}
@@ -28,8 +43,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--font-body);-webk
 .wrap{max-width:1180px;margin:0 auto;padding:0 44px}
 a{color:inherit}
 .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-.nav{padding:26px 0;border-bottom:1px solid var(--hair)}
-.brand{font-size:15px;letter-spacing:.02em;font-weight:500;text-decoration:none}
+.nav{padding:26px 0;border-bottom:1px solid var(--hair);position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.brand{font-size:15px;letter-spacing:.02em;font-weight:500;white-space:nowrap;text-decoration:none}
 .back{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;gap:9px;align-items:center}
 .back:hover{color:var(--ink)}
 .back .ar{transition:transform .25s ease}.back:hover .ar{transform:translateX(-4px)}
@@ -56,11 +71,11 @@ a{color:inherit}
 .outcomes{background:var(--dark);color:var(--text-strong);padding:96px 0}
 .outcomes .seclabel{color:var(--accent)}
 .oh2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,3.8vw,46px);letter-spacing:-.015em;line-height:1.08;margin:26px 0 0;max-width:20ch;color:var(--text-strong)}
-.oprose{font-size:18px;line-height:1.68;color:rgba(244,241,234,.78);max-width:60ch;margin-top:30px}
+.oprose{font-size:18px;line-height:1.68;color:var(--text-body);max-width:60ch;margin-top:30px}
 .shipped{margin-top:52px}
-.shipped .k{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.5);margin-bottom:16px}
+.shipped .k{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
 .shiplist{display:flex;flex-wrap:wrap;gap:10px}
-.shipitem{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--text-strong);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:7px 15px}
+.shipitem{font-family:var(--font-mono);font-size:12px;letter-spacing:.03em;color:var(--text-strong);border:1px solid var(--border-strong);border-radius:100px;padding:7px 15px}
 .next{padding:70px 0;border-top:1px solid var(--ink)}
 .nextlink{display:flex;align-items:baseline;justify-content:space-between;gap:24px;text-decoration:none}
 .nextlabel{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
