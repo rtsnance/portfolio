@@ -1,5 +1,7 @@
 // Theme switcher — vanilla JS replacement for the Claude Design prototype's
-// React-based DCLogic component. Persists to localStorage('rn-theme'), default 'night'.
+// React-based DCLogic component. Persists to localStorage('rn-theme').
+// The default for first-time visitors is time-of-day based, computed by the
+// inline <head> script before first paint; init() must inherit it, not recompute.
 (function () {
   var STORAGE_KEY = 'rn-theme';
 
@@ -11,7 +13,7 @@
   }
 
   function init() {
-    var current = localStorage.getItem(STORAGE_KEY) || 'night';
+    var current = localStorage.getItem(STORAGE_KEY) || document.documentElement.dataset.theme || 'night';
     applyTheme(current);
 
     document.querySelectorAll('.tdot').forEach(function (btn) {

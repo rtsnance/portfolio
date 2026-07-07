@@ -31,7 +31,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="css/desert-ds.css">
-<script>document.documentElement.dataset.theme=localStorage.getItem('rn-theme')||'night'</script>
+<script>document.documentElement.dataset.theme=localStorage.getItem('rn-theme')||(h=>h<5?'night':h<10?'sunrise':h<17?'day':h<21?'sunset':'night')(new Date().getHours())</script>
 <style>
 
 
