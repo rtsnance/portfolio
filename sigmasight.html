@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="night">
+<html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRE3GJ6DSF"></script>
@@ -31,7 +31,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="css/desert-ds.css">
-<script>document.documentElement.dataset.theme=localStorage.getItem('rn-theme')||(h=>h<5?'night':h<10?'sunrise':h<17?'day':h<21?'sunset':'night')(new Date().getHours())</script>
+<link rel="stylesheet" href="css/horizon.css">
+<script>(function(){var P={night:['#14162E','#F2F0FA','#D2D2E6','#9FA0C0','#6E6F94','#E8C877','#2E3358','#1E2240','#0E1024','#434974'],sunrise:['#FBF1EA','#382B2E','#574549','#8A7076','#B49AA0','#D5871F','#F0D8C8','#FFF8F2','#F5E4D9','#E4C4B0'],day:['#FCF7EC','#292420','#463F34','#6E6555','#9C917E','#D06334','#EBD7B3','#FDFAF3','#F6ECD6','#D6BB85'],sunset:['#FBEADF','#2E2228','#4A3742','#7C6169','#AD8E96','#C64A6E','#F0CDB8','#FFF4EC','#F5D8C7','#E7B79C']},V=['--bg-page','--text-strong','--text-body','--text-muted','--text-faint','--accent','--border','--bg-raised','--bg-sunk','--border-strong'],S=[[0,'night'],[6.5,'sunrise'],[12.5,'day'],[18.5,'sunset'],[24,'night']],d=new Date(),h=d.getHours()+d.getMinutes()/60+d.getSeconds()/3600;if(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)h=0;var i=0;while(i<3&&h>=S[i+1][0])i++;var t=(h-S[i][0])/(S[i+1][0]-S[i][0]),a=P[S[i][1]],b=P[S[i+1][1]],r=document.documentElement,k,c,o,v;for(k=0;k<V.length;k++){o='#';for(c=1;c<6;c+=2){v=Math.round(parseInt(a[k].substr(c,2),16)+(parseInt(b[k].substr(c,2),16)-parseInt(a[k].substr(c,2),16))*t).toString(16);o+=v.length<2?'0'+v:v}r.style.setProperty(V[k],o)}})()</script>
 <style>
 
 
@@ -48,9 +49,6 @@ a{color:inherit}
 .back{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;gap:9px;align-items:center}
 .back:hover{color:var(--ink)}
 .back .ar{transition:transform .25s ease}.back:hover .ar{transform:translateX(-4px)}
-.tswitch{display:flex;align-items:center;gap:9px}
-.tdot{width:15px;height:15px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0}
-.tdot.on{box-shadow:0 0 0 2px var(--paper),0 0 0 3.5px var(--accent)}
 .chead{padding:88px 0 46px}
 [data-theme="night"] .chead{background:radial-gradient(1.6px 1.6px at 12% 16%,rgba(240,216,154,.9) 50%,transparent 51%),radial-gradient(1.2px 1.2px at 28% 58%,rgba(240,216,154,.5) 50%,transparent 51%),radial-gradient(1.8px 1.8px at 44% 26%,rgba(240,216,154,.75) 50%,transparent 51%),radial-gradient(1.2px 1.2px at 58% 70%,rgba(240,216,154,.45) 50%,transparent 51%),radial-gradient(1.6px 1.6px at 71% 18%,rgba(240,216,154,.85) 50%,transparent 51%),radial-gradient(1.2px 1.2px at 84% 52%,rgba(240,216,154,.5) 50%,transparent 51%),radial-gradient(1.8px 1.8px at 93% 30%,rgba(240,216,154,.7) 50%,transparent 51%),linear-gradient(180deg,#0E1024 0%,#14162E 100%)}
 .ctitle{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.03;font-size:clamp(44px,6.6vw,88px);margin:22px 0 0;max-width:14ch}
@@ -87,7 +85,7 @@ a{color:inherit}
 </head>
 <body>
 
-<div class="nav"><div class="wrap fx ac jb"><a class="brand" href="index.html">Ryan Nance</a><div class="fx ac gap24"><a class="back" href="index.html"><span class="ar">←</span> All Work</a><div class="tswitch"><button class="tdot" data-theme-btn="day" title="Desert Day" style="background:linear-gradient(135deg, #FCF7EC 50%, #D06334 50%)"></button><button class="tdot" data-theme-btn="sunrise" title="Sunrise" style="background:linear-gradient(135deg, #FBF1EA 50%, #D5871F 50%)"></button><button class="tdot" data-theme-btn="sunset" title="Sunset" style="background:linear-gradient(135deg, #FBEADF 50%, #C64A6E 50%)"></button><button class="tdot" data-theme-btn="night" title="Night" style="background:linear-gradient(135deg, #14162E 50%, #E8C877 50%)"></button></div></div></div></div>
+<div class="nav"><div class="wrap fx ac jb"><a class="brand" href="index.html">Ryan Nance</a><div class="fx ac gap24"><a class="back" href="index.html"><span class="ar">←</span> All Work</a></div></div></div>
 <header class="chead"><div class="wrap"><div class="eyebrow">Case Study 01 · SaaS / Legal‑Tech Analytics · 2024–Present</div><h1 class="ctitle">SigmaSight</h1><p class="csummary">Defining the information architecture and design system for an AI trial‑risk and negotiation analytics platform — as the company's first product designer.</p><div class="metagrid"><div class="mg"><div class="mglabel">Role</div><div class="mgval">Principal Product Designer<br>First design hire · partnered with CEO &amp; CPO</div></div><div class="mg"><div class="mglabel">Timeline</div><div class="mgval">Ongoing since 2024</div></div><div class="mg"><div class="mglabel">Platform</div><div class="mgval">Web — B2B SaaS</div></div><div class="mg"><div class="mglabel">Team</div><div class="mgval">Sole product designer</div></div></div><div class="confnote">Presented at the level of process and decisions — no screens or proprietary feature names, per the confidentiality of the domain.</div></div></header>
 <section class="sec"><div class="wrap"><div class="seclabel">01 — Context</div><div class="secgrid"><div class="sub">Where the product<br>stood</div><div><h2 class="h2">An early MVP with real traction — and no design foundation underneath it.</h2><div class="prose"><p>SigmaSight gives insurance defense teams AI‑powered trial‑risk analytics and negotiation tools to counter the data advantage plaintiff attorneys have built over the last decade.</p><p>I joined as the company's <strong>first product designer</strong>, when the platform was an early MVP with no defined information architecture, no design system, and no established interaction patterns beyond what one or two power users had grown used to.</p></div></div></div></div></section>
 <section class="sec"><div class="wrap"><div class="seclabel">02 — Problem</div><div class="secgrid"><div class="sub">Inconsistency,<br>compounding</div><div><h2 class="h2">Every new feature was being bolted on rather than fitting into a structure users could predict.</h2><div class="prose"><p>As the platform added capability, the lack of a coherent IA meant features accumulated instead of composing. There was <strong>no shared visual or interaction language</strong> for engineering to build against — so inconsistency compounded with every release.</p></div></div></div></div></section>
@@ -96,6 +94,8 @@ a{color:inherit}
 <nav class="next"><div class="wrap"><a class="nextlink" href="grailed.html"><div><div class="nextlabel">Next</div><div class="nexttitle">Grailed — Marketplace trust &amp; conversion</div></div><div class="nexttitle">→</div></a></div></nav>
 
 
-<script src="js/site.js" defer></script>
+<div class="hz" id="hz" role="slider" tabindex="0" aria-label="Time of day" aria-valuemin="0" aria-valuemax="24" aria-valuenow="12" aria-valuetext="Day"><div class="hz-sky" aria-hidden="true"></div><div class="hz-marker" aria-hidden="true"><span class="hz-cap"></span></div><span class="hz-word" aria-hidden="true">Day</span></div>
+
+<script src="js/horizon.js" defer></script>
 </body>
 </html>

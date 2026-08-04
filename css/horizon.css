@@ -1,0 +1,159 @@
+/* ============================================================
+   HORIZON — the band pinned to the bottom of every viewport.
+   The whole 24-hour day laid left to right, with a marker at the
+   visitor's local time. Not a picker. The site is in a condition
+   and this reports which one.
+
+   Every hex here is lifted from desert-ds.css. Everything that is
+   not a sky color is expressed as rgba() so the band's own ink
+   never depends on the theme it sits under.
+   ============================================================ */
+
+:root {
+  /* set by js/horizon.js — marker position as a percentage of the band */
+  --hz-x: 52.0833%;
+  --hz-h: 56px;
+}
+
+@media (max-width: 619px) {
+  :root { --hz-h: 64px; }
+}
+
+/* The interpolated palette lands on documentElement as inline custom
+   properties, so html carries the page color before body exists. Without
+   this there is a white canvas flash at every dark hour. */
+html { background: var(--bg-page); }
+
+/* The light changes; the page does not repaint. */
+body {
+  padding-bottom: calc(var(--hz-h) + var(--space-2) + env(safe-area-inset-bottom, 0px));
+  transition: background-color 220ms linear, color 220ms linear;
+}
+
+/* ---------- the band ---------- */
+.hz {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  height: calc(var(--hz-h) + env(safe-area-inset-bottom, 0px));
+  /* The inset is part of the drag surface but carries no marks, so the
+     bottom of the track is never under the iOS home indicator. */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  overflow: hidden;
+}
+
+.hz.dragging { cursor: grabbing; }
+
+.hz:focus { outline: none; }
+
+.hz:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+/* ---------- the sky ---------- */
+/* Static. The band is the almanac; the page is the weather. */
+.hz-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    #14162E 0%, #1E2240 6%, #2E3358 12%, #6E4A82 17%,
+    #E8846B 23%, #F8CE8E 27%, #8CC4E6 34%,
+    #3D93CE 50%,
+    #8CC4E6 66%, #F0A968 73%,
+    #DD7226 78%, #C64A6E 82%, #6E4A82 87%,
+    #2E3358 92%, #14162E 100%);
+}
+
+/* 96 divisions — one rule every 15 minutes, faded out toward the top. */
+.hz-sky::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--hz-h);
+  background-image: repeating-linear-gradient(90deg,
+    rgba(255, 255, 255, .34) 0 1px,
+    rgba(255, 255, 255, 0) 1px calc(100% / 96));
+  -webkit-mask-image: linear-gradient(180deg,
+    rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 46%, rgba(0, 0, 0, 1) 100%);
+  mask-image: linear-gradient(180deg,
+    rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 46%, rgba(0, 0, 0, 1) 100%);
+}
+
+/* The four named lights: 0h, 6.5h, 12.5h, 18.5h, and night again at 24h. */
+.hz-sky::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--hz-h);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72)),
+    linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72)),
+    linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72)),
+    linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72)),
+    linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72));
+  background-repeat: no-repeat;
+  background-size: 1px 36px;
+  background-position:
+    0% 100%, 27.0833% 100%, 52.0833% 100%, 77.0833% 100%, 100% 100%;
+}
+
+/* ---------- the marker ---------- */
+/* A dark halo so the rule survives both the pale and the dark ends. */
+.hz-marker {
+  position: absolute;
+  top: 0;
+  left: var(--hz-x);
+  width: 1px;
+  height: var(--hz-h);
+  background: rgba(255, 255, 255, .95);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .45);
+}
+
+.hz-cap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  background: rgba(255, 255, 255, .95);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .45);
+}
+
+/* ---------- the word ---------- */
+/* One word. It names the light you are in and nothing else. */
+.hz-word {
+  position: absolute;
+  top: 50%;
+  left: var(--hz-x);
+  transform: translate(var(--space-2), -50%);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, .96);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .55), 0 0 1px rgba(0, 0, 0, .8);
+  pointer-events: none;
+}
+
+/* Past ~78% across, the word would run off the edge. */
+.hz.flip .hz-word {
+  transform: translate(calc(-100% - var(--space-2)), -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { transition: none; }
+}

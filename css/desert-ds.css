@@ -90,9 +90,13 @@
 
 /* ============================================================
    THEME SCOPES — the desert across a day.
-   Apply data-theme="sunrise|sunset|night" on any container;
-   semantic aliases below re-point so components re-theme with
-   no markup change. Desert Day is the default (:root above).
+
+   These are no longer applied as attribute scopes. They are the
+   source of the four anchor palettes that js/horizon.js and the
+   head bootstrap interpolate between, and they are kept in that
+   form so the anchors stay readable and editable in one place.
+   The live palette arrives as inline custom properties on :root,
+   which outrank any [data-theme] scope on a container.
    ============================================================ */
 
 /* ---------- SUNRISE — soft dawn: rose, apricot, periwinkle ---------- */
@@ -249,9 +253,7 @@
 .jb { justify-content: space-between; }
 .gap24 { gap: 24px; }
 
-/* nav row: align the brand to the links' text baseline, not box centers.
-   The right-hand group keeps .ac internally so the theme dots stay
-   vertically centered against the link text. */
+/* nav row: align the brand to the links' text baseline, not box centers. */
 .nav .wrap { align-items: baseline; }
 
 /* compact nav below 480px — the full-size row needs ~400px of content.
@@ -262,7 +264,5 @@
   .nav .gap24 { gap: 10px; }
   .nav .navlinks { gap: 10px; }
   .nav .navlink, .nav .back { font-size: 10.5px; letter-spacing: .03em; }
-  .nav .tswitch { gap: 5px; }
-  .nav .tdot { width: 12px; height: 12px; }
 }
 
