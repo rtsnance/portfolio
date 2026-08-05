@@ -23,6 +23,8 @@
   var KEY_STEP_BIG = 1;        // hours per shift-arrow
   var FLIP_AT = 0.78;          // fraction across where the word flips side
   var WORD_GAP = 8;            // px between marker and word; matches --space-2
+  var OPEN_DELAY = 60;         // ms before opening, so a passing cursor is ignored
+  var CLOSE_DELAY = 220;       // ms before closing, so crossing the band does not flicker
 
   // -------- the four lights, verbatim from desert-ds.css --------
   // Order matches TOKENS below.
@@ -52,8 +54,10 @@
   // opens at night and never drifts. Dragging still works and sticks.
   var darkQuery = mq('(prefers-color-scheme: dark)');
   var motionQuery = mq('(prefers-reduced-motion: reduce)');
+  var coarseQuery = mq('(pointer: coarse)');
   function locked() { return darkQuery.matches; }
   function reduced() { return motionQuery.matches; }
+  function coarse() { return coarseQuery.matches; }
 
   // -------- color --------
   function channels(hex) {
@@ -79,23 +83,51 @@
     return i;
   }
 
+  // Where in a segment the light sits, 0 to 1.
+  //
+  // Two of the four segments cross between a dark page and a light one. Across
+  // such a crossing the text travels light-to-dark while the page travels
+  // dark-to-light, so the two must pass through each other, and where they
+  // meet the contrast is 1:1. No continuous path avoids this: compressing the
+  // crossing only shortens the unreadable stretch, it never removes it.
+  //
+  // So each crossing keeps drifting right up to the last legible blend, jumps
+  // the unreadable middle in one step, and resumes drifting. Dawn and dusk are
+  // the only two moments in the day when the light is not continuous, which is
+  // roughly true of dawn and dusk. Everywhere else the drift is unbroken.
+  //
+  // `at` is when the jump lands; `lo`/`hi` are the blends either side of it,
+  // solved for 5:1 to leave headroom over the 4.5:1 floor. Tune `at` freely;
+  // move `lo`/`hi` inward only, or contrast starts failing again.
+  var GAPS = [
+    { at: 5.75, lo: 0.1985, hi: 0.8885 },   // night -> sunrise
+    null,                                   // sunrise -> day, both light
+    null,                                   // day -> sunset, both light
+    { at: 20.25, lo: 0.1435, hi: 0.8045 }   // sunset -> night
+  ];
+
+  function blend(h, i) {
+    var lo = ANCHORS[i][0], hi = ANCHORS[i + 1][0], g = GAPS[i];
+    if (!g) return (h - lo) / (hi - lo);
+    return h < g.at
+      ? (h - lo) / (g.at - lo) * g.lo
+      : g.hi + (h - g.at) / (hi - g.at) * (1 - g.hi);
+  }
+
   function paletteAt(h) {
     var i = segment(h);
     var lo = ANCHORS[i], hi = ANCHORS[i + 1];
-    var t = (h - lo[0]) / (hi[0] - lo[0]);
+    var t = blend(h, i);
     var a = PALETTES[lo[1]], b = PALETTES[hi[1]], out = [], k;
     for (k = 0; k < TOKENS.length; k++) out.push(mix(a[k], b[k], t));
     return out;
   }
 
-  // The word names the anchor you are nearest, not the segment you are in.
+  // The word names whichever light the current blend is mostly made of, so it
+  // changes at exactly the moment the light does.
   function lightName(h) {
-    var best = ANCHORS[0], bestD = Infinity, i, d;
-    for (i = 0; i < ANCHORS.length; i++) {
-      d = Math.abs(h - ANCHORS[i][0]);
-      if (d < bestD) { bestD = d; best = ANCHORS[i]; }
-    }
-    return WORDS[best[1]];
+    var i = segment(h);
+    return WORDS[ANCHORS[blend(h, i) < 0.5 ? i : i + 1][1]];
   }
 
   function nearestAnchorHour(h) {
@@ -136,6 +168,9 @@
   var keyTimer = null;
   var announced = '';
   var widthCache = {};
+  var openTimer = null;
+  var closeTimer = null;
+  var lastJumpKey = null;
 
   // Measured once per word. Reading offsetWidth every frame during a drag
   // would force a layout right after we wrote --hz-x.
@@ -149,10 +184,34 @@
     if (hour !== null) paint(hour);
   }
 
+  // Which side of each discontinuity we are on. When this changes, the light
+  // has jumped rather than drifted.
+  function jumpKey(h) {
+    var k = '', i;
+    for (i = 0; i < GAPS.length; i++) if (GAPS[i]) k += (h >= GAPS[i].at ? '1' : '0');
+    return k;
+  }
+
   function paint(h) {
     hour = clamp(h);
     var colors = paletteAt(hour), i;
+
+    // The 220ms body fade is there to make drift read as light changing. At a
+    // jump it would do the opposite: the page would cross-fade through mid
+    // grey while the text switched polarity in one frame, and the two would be
+    // briefly unreadable in between. So the jump is cut, not faded.
+    var key = jumpKey(hour);
+    var cut = lastJumpKey !== null && key !== lastJumpKey;
+    lastJumpKey = key;
+    if (cut) root.classList.add('hz-cut');
+
     for (i = 0; i < TOKENS.length; i++) root.style.setProperty(TOKENS[i], colors[i]);
+
+    if (cut) {
+      // Commit the new colors while transitions are off, so none can start.
+      void root.offsetWidth;
+      root.classList.remove('hz-cut');
+    }
 
     var frac = hour / 24;
     band.style.setProperty('--hz-x', (frac * 100) + '%');
@@ -211,6 +270,38 @@
     }, CREEP_MS);
   }
 
+  // -------- rest and open --------
+  // At rest the band is a colored edge to the page. Open, it is graduated.
+  // The delays matter: without them the band flickers every time a cursor
+  // crosses the bottom of the screen on its way somewhere else.
+  function clearOpenTimers() {
+    if (openTimer !== null) { clearTimeout(openTimer); openTimer = null; }
+    if (closeTimer !== null) { clearTimeout(closeTimer); closeTimer = null; }
+  }
+
+  function open() {
+    if (coarse()) return;
+    clearOpenTimers();
+    openTimer = setTimeout(function () {
+      openTimer = null;
+      band.classList.add('open');
+    }, OPEN_DELAY);
+  }
+
+  function close() {
+    if (coarse()) return;
+    clearOpenTimers();
+    closeTimer = setTimeout(function () {
+      closeTimer = null;
+      // Never close mid-drag, even if the pointer has wandered off the band.
+      if (!dragging) band.classList.remove('open');
+    }, CLOSE_DELAY);
+  }
+
+  function hovered() {
+    return band.matches && band.matches(':hover');
+  }
+
   // -------- drag: the whole horizon is the track --------
   function hourFromEvent(e) {
     var r = band.getBoundingClientRect();
@@ -221,6 +312,7 @@
   function onPointerDown(e) {
     cancelDrift();
     if (keyTimer !== null) { clearTimeout(keyTimer); keyTimer = null; }
+    open();
     dragging = true;
     band.classList.add('dragging');
     if (band.setPointerCapture) {
@@ -243,6 +335,9 @@
     if (band.releasePointerCapture) {
       try { band.releasePointerCapture(e.pointerId); } catch (err) { /* already gone */ }
     }
+    // The drag may have ended well off the band, in which case the
+    // pointerleave that would have closed it already came and went.
+    if (!hovered()) close();
     startDrift();
   }
 
@@ -259,6 +354,7 @@
 
     e.preventDefault();
     cancelDrift();
+    open();
     paint(next);
 
     if (keyTimer !== null) clearTimeout(keyTimer);
@@ -280,6 +376,13 @@
     band.addEventListener('pointercancel', onPointerUp);
     band.addEventListener('keydown', onKeyDown);
     band.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+    // Reaching for it opens it: cursor or keyboard. Both are no-ops on touch,
+    // where the band is already at full height and never animates.
+    band.addEventListener('pointerenter', open);
+    band.addEventListener('pointerleave', close);
+    band.addEventListener('focus', open);
+    band.addEventListener('blur', close);
 
     // The word's width decides when it has to flip, so re-measure whenever
     // it could have changed: viewport resize, and the webfont arriving.

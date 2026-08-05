@@ -4,19 +4,25 @@
    visitor's local time. Not a picker. The site is in a condition
    and this reports which one.
 
+   At rest it is a horizon: 18px of sky, the marker, one small word.
+   Open it is an instrument: 56px, with all 96 graduations. The
+   graduations only exist once someone reaches for them.
+
    Every hex here is lifted from desert-ds.css. Everything that is
    not a sky color is expressed as rgba() so the band's own ink
    never depends on the theme it sits under.
    ============================================================ */
 
 :root {
-  /* set by js/horizon.js — marker position as a percentage of the band */
+  /* marker position as a percentage of the band; set by js/horizon.js */
   --hz-x: 52.0833%;
-  --hz-h: 56px;
+  --hz-rest: 18px;
+  --hz-open: 56px;
+  --hz-inset: env(safe-area-inset-bottom, 0px);
 }
 
 @media (max-width: 619px) {
-  :root { --hz-h: 64px; }
+  :root { --hz-open: 64px; }
 }
 
 /* The interpolated palette lands on documentElement as inline custom
@@ -24,11 +30,19 @@
    this there is a white canvas flash at every dark hour. */
 html { background: var(--bg-page); }
 
-/* The light changes; the page does not repaint. */
+/* The light changes; the page does not repaint.
+   The OPEN height is reserved at all times. Opening only grows the band
+   upward over the page, so nothing reflows when it does. This is the
+   single most important rule in the component. */
 body {
-  padding-bottom: calc(var(--hz-h) + var(--space-2) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--hz-open) + var(--space-2) + var(--hz-inset));
   transition: background-color 220ms linear, color 220ms linear;
 }
+
+/* Dawn and dusk are discontinuities, not drifts. Fading the page across one
+   would put a mid-grey background under text that had already switched
+   polarity, so js/horizon.js cuts the transition for exactly that frame. */
+html.hz-cut body { transition: none; }
 
 /* ---------- the band ---------- */
 .hz {
@@ -37,17 +51,19 @@ body {
   right: 0;
   bottom: 0;
   z-index: 60;
-  height: calc(var(--hz-h) + env(safe-area-inset-bottom, 0px));
+  height: calc(var(--hz-rest) + var(--hz-inset));
   /* The inset is part of the drag surface but carries no marks, so the
      bottom of the track is never under the iOS home indicator. */
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-bottom: var(--hz-inset);
   cursor: grab;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  overflow: hidden;
+  transition: height 180ms cubic-bezier(.2, .7, .3, 1);
 }
+
+.hz.open { height: calc(var(--hz-open) + var(--hz-inset)); }
 
 .hz.dragging { cursor: grabbing; }
 
@@ -55,14 +71,18 @@ body {
 
 .hz:focus-visible {
   outline: 2px solid var(--focus-ring);
-  outline-offset: -3px;
+  outline-offset: 2px;
 }
 
 /* ---------- the sky ---------- */
-/* Static. The band is the almanac; the page is the weather. */
+/* Static. The band is the almanac; the page is the weather.
+   It clips its own graduations so the marker cap can still sit proud
+   of the band's top edge. */
 .hz-sky {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+  pointer-events: none;
   background: linear-gradient(90deg,
     #14162E 0%, #1E2240 6%, #2E3358 12%, #6E4A82 17%,
     #E8846B 23%, #F8CE8E 27%, #8CC4E6 34%,
@@ -72,14 +92,17 @@ body {
     #2E3358 92%, #14162E 100%);
 }
 
-/* 96 divisions — one rule every 15 minutes, faded out toward the top. */
+/* 96 divisions — one rule every 15 minutes, faded out toward the top.
+   Absent at rest; they arrive only when the band opens. */
 .hz-sky::before {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  height: var(--hz-h);
+  bottom: var(--hz-inset);
+  opacity: 0;
+  transition: opacity 150ms ease 40ms;
   background-image: repeating-linear-gradient(90deg,
     rgba(255, 255, 255, .34) 0 1px,
     rgba(255, 255, 255, 0) 1px calc(100% / 96));
@@ -89,14 +112,19 @@ body {
     rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .5) 46%, rgba(0, 0, 0, 1) 100%);
 }
 
-/* The four named lights: 0h, 6.5h, 12.5h, 18.5h, and night again at 24h. */
+.hz.open .hz-sky::before { opacity: 1; }
+
+/* The four named lights: 0h, 6.5h, 12.5h, 18.5h, and night again at 24h.
+   Present but quiet at rest, full when open. */
 .hz-sky::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  height: var(--hz-h);
+  bottom: var(--hz-inset);
+  opacity: .45;
+  transition: opacity 150ms ease;
   background-image:
     linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72)),
     linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72)),
@@ -104,56 +132,91 @@ body {
     linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72)),
     linear-gradient(rgba(255, 255, 255, .72), rgba(255, 255, 255, .72));
   background-repeat: no-repeat;
-  background-size: 1px 36px;
+  background-size: 1px 56%;
   background-position:
     0% 100%, 27.0833% 100%, 52.0833% 100%, 77.0833% 100%, 100% 100%;
 }
+
+.hz.open .hz-sky::after { opacity: 1; }
 
 /* ---------- the marker ---------- */
 /* A dark halo so the rule survives both the pale and the dark ends. */
 .hz-marker {
   position: absolute;
   top: 0;
+  bottom: var(--hz-inset);
   left: var(--hz-x);
   width: 1px;
-  height: var(--hz-h);
   background: rgba(255, 255, 255, .95);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .45);
+  pointer-events: none;
 }
 
+/* Sits proud of the band's top edge, so the mark is findable at 18px. */
 .hz-cap {
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 50%;
-  width: 5px;
-  height: 5px;
-  margin-left: -2.5px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
   background: rgba(255, 255, 255, .95);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .45);
 }
 
 /* ---------- the word ---------- */
-/* One word. It names the light you are in and nothing else. */
+/* One word. It names the light you are in and nothing else.
+   Small and low at rest; it grows and lifts when the band opens. */
 .hz-word {
   position: absolute;
-  top: 50%;
+  bottom: calc(var(--hz-inset) + 3px);
   left: var(--hz-x);
-  transform: translate(var(--space-2), -50%);
+  transform: translateX(var(--space-2));
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-size: 9px;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   white-space: nowrap;
   color: rgba(255, 255, 255, .96);
   text-shadow: 0 1px 3px rgba(0, 0, 0, .55), 0 0 1px rgba(0, 0, 0, .8);
   pointer-events: none;
+  transition: font-size 180ms ease, bottom 180ms ease;
+}
+
+.hz.open .hz-word {
+  bottom: calc(var(--hz-inset) + 9px);
+  font-size: 11px;
 }
 
 /* Past ~78% across, the word would run off the edge. */
 .hz.flip .hz-word {
-  transform: translate(calc(-100% - var(--space-2)), -50%);
+  transform: translateX(calc(-100% - var(--space-2)));
+}
+
+/* ---------- touch ---------- */
+/* There is no hover on a touch screen, so an 18px strip that only grows
+   on an event that never fires would be unusable. The band sits
+   permanently at a comfortable target, already graduated, never animating. */
+@media (pointer: coarse) {
+  :root {
+    --hz-rest: 44px;
+    --hz-open: 44px;
+  }
+  .hz { transition: none; }
+  .hz-sky::before { opacity: 1; transition: none; }
+  .hz-sky::after { opacity: 1; transition: none; }
+  .hz-word,
+  .hz.open .hz-word {
+    bottom: calc(var(--hz-inset) + 7px);
+    font-size: 10px;
+    transition: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   body { transition: none; }
+  .hz,
+  .hz-sky::before,
+  .hz-sky::after,
+  .hz-word { transition: none; }
 }
