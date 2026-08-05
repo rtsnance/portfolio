@@ -19,6 +19,10 @@
   --hz-rest: 18px;
   --hz-open: 56px;
   --hz-inset: env(safe-area-inset-bottom, 0px);
+  /* How much night there is, 0 to 1. Written by js/horizon.js and by the head
+     bootstrap; the hero starfield multiplies its alphas by it. Declared here
+     so the starfield never resolves against an undefined value. */
+  --night: 0;
 }
 
 @media (max-width: 619px) {

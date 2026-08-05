@@ -106,6 +106,13 @@
     { at: 20.25, lo: 0.1435, hi: 0.8045 }   // sunset -> night
   ];
 
+  // Night sits at both ends of the band, so it is the start of the first
+  // segment and the end of the last. In between there is none.
+  function nightAmount(h) {
+    var i = segment(h);
+    return i === 0 ? 1 - blend(h, i) : i === ANCHORS.length - 2 ? blend(h, i) : 0;
+  }
+
   function blend(h, i) {
     var lo = ANCHORS[i][0], hi = ANCHORS[i + 1][0], g = GAPS[i];
     if (!g) return (h - lo) / (hi - lo);
@@ -206,6 +213,11 @@
     if (cut) root.classList.add('hz-cut');
 
     for (i = 0; i < TOKENS.length; i++) root.style.setProperty(TOKENS[i], colors[i]);
+
+    // How much night there is, 0 to 1. The starfield on the hero used to be
+    // keyed on [data-theme="night"], which was all-or-nothing because the
+    // theme was. Now the stars come out as the night comes on.
+    root.style.setProperty('--night', String(nightAmount(hour)));
 
     if (cut) {
       // Commit the new colors while transitions are off, so none can start.
