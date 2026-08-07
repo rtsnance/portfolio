@@ -109,7 +109,7 @@
 
   --bg-page: #FBF1EA;  --bg-raised: #FFF8F2;  --bg-sunk: #F5E4D9;  --bg-inverse: #382B2E;
   --text-strong: #382B2E;  --text-body: #574549;  --text-muted: #8A7076;  --text-faint: #B49AA0;  --text-on-brand: #FFF8F2;
-  --brand: #C25A44;  --brand-hover: #A6472F;  --accent: #D5871F;  --support: #5A69B0;  --highlight: #F8CE8E;
+  --brand: #C25A44;  --brand-hover: #A6472F;  --accent: #D5871F;  --accent-hover: #AD5912;  --support: #5A69B0;  --highlight: #F8CE8E;
   --border: #F0D8C8;  --border-strong: #E4C4B0;  --divider: #F5E4D9;
   --link: #5A69B0;  --link-hover: #43539A;  --focus-ring: #8290CE;
   --success: #5E7A32;  --warning: #D5871F;  --danger: #C25A44;
@@ -126,7 +126,7 @@
 
   --bg-page: #FBEADF;  --bg-raised: #FFF4EC;  --bg-sunk: #F5D8C7;  --bg-inverse: #2E2228;
   --text-strong: #2E2228;  --text-body: #4A3742;  --text-muted: #7C6169;  --text-faint: #AD8E96;  --text-on-brand: #FFF4EC;
-  --brand: #DD7226;  --brand-hover: #B4530F;  --accent: #C64A6E;  --support: #6E4A82;  --highlight: #F4C878;
+  --brand: #DD7226;  --brand-hover: #B4530F;  --accent: #C64A6E;  --accent-hover: #9E3050;  --support: #6E4A82;  --highlight: #F4C878;
   --border: #F0CDB8;  --border-strong: #E7B79C;  --divider: #F5D8C7;
   --link: #C64A6E;  --link-hover: #9E3050;  --focus-ring: #DD7226;
   --success: #5E7A32;  --warning: #E6A430;  --danger: #B4530F;
@@ -142,7 +142,7 @@
 
   --bg-page: #14162E;  --bg-raised: #1E2240;  --bg-sunk: #0E1024;  --bg-inverse: #EDEBF6;
   --text-strong: #F2F0FA;  --text-body: #D2D2E6;  --text-muted: #9FA0C0;  --text-faint: #6E6F94;  --text-on-brand: #14162E;
-  --brand: #7C8FD6;  --brand-hover: #9DAAE4;  --accent: #E8C877;  --support: #5F9A90;  --highlight: #E8C877;
+  --brand: #7C8FD6;  --brand-hover: #9DAAE4;  --accent: #E8C877;  --accent-hover: #F0D89A;  --support: #5F9A90;  --highlight: #E8C877;
   --border: #2E3358;  --border-strong: #434974;  --divider: #23274A;
   --link: #9DAAE4;  --link-hover: #B8C2EE;  --focus-ring: #7C8FD6;
   --success: #5F9A90;  --warning: #E8C877;  --danger: #DD7A6E;

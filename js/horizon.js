@@ -29,15 +29,15 @@
   // -------- the four lights, verbatim from desert-ds.css --------
   // Order matches TOKENS below.
   var PALETTES = {
-    night:   ['#14162E', '#F2F0FA', '#D2D2E6', '#9FA0C0', '#6E6F94', '#E8C877', '#2E3358', '#1E2240', '#0E1024', '#434974'],
-    sunrise: ['#FBF1EA', '#382B2E', '#574549', '#8A7076', '#B49AA0', '#D5871F', '#F0D8C8', '#FFF8F2', '#F5E4D9', '#E4C4B0'],
-    day:     ['#FCF7EC', '#292420', '#463F34', '#6E6555', '#9C917E', '#D06334', '#EBD7B3', '#FDFAF3', '#F6ECD6', '#D6BB85'],
-    sunset:  ['#FBEADF', '#2E2228', '#4A3742', '#7C6169', '#AD8E96', '#C64A6E', '#F0CDB8', '#FFF4EC', '#F5D8C7', '#E7B79C']
+    night:   ['#14162E', '#F2F0FA', '#D2D2E6', '#9FA0C0', '#6E6F94', '#E8C877', '#F0D89A', '#2E3358', '#1E2240', '#0E1024', '#434974'],
+    sunrise: ['#FBF1EA', '#382B2E', '#574549', '#8A7076', '#B49AA0', '#D5871F', '#AD5912', '#F0D8C8', '#FFF8F2', '#F5E4D9', '#E4C4B0'],
+    day:     ['#FCF7EC', '#292420', '#463F34', '#6E6555', '#9C917E', '#D06334', '#A9411F', '#EBD7B3', '#FDFAF3', '#F6ECD6', '#D6BB85'],
+    sunset:  ['#FBEADF', '#2E2228', '#4A3742', '#7C6169', '#AD8E96', '#C64A6E', '#9E3050', '#F0CDB8', '#FFF4EC', '#F5D8C7', '#E7B79C']
   };
 
   var TOKENS = [
     '--bg-page', '--text-strong', '--text-body', '--text-muted', '--text-faint',
-    '--accent', '--border', '--bg-raised', '--bg-sunk', '--border-strong'
+    '--accent', '--accent-hover', '--border', '--bg-raised', '--bg-sunk', '--border-strong'
   ];
 
   // Night sits at both ends of the band, because it does.
