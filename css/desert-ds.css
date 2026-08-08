@@ -266,3 +266,12 @@
   .nav .navlink, .nav .back { font-size: 10.5px; letter-spacing: .03em; }
 }
 
+/* Four nav items (Work / Instruments / About / Contact) need ~352px before the
+   brand and the links touch. One more step keeps them apart on 320px screens.
+   .back is left alone; the case-study pages carry a single link, not a row. */
+@media (max-width: 359px) {
+  .nav .brand { font-size: 12.5px; }
+  .nav .navlinks { gap: 8px; }
+  .nav .navlink { font-size: 9.5px; letter-spacing: .02em; }
+}
+
