@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Ryan Nance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&family=Mulish:wght@400;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--bone:#fdfaf4;--sand-100:#f7f1e6;--sand-300:#e3d5be;--sand-200:#efe5d4;
+        --clay-500:#b4633f;--ink-900:#2b2320;--ink-700:#4b3f39;--ink-500:#6f6058;}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bone);color:var(--ink-700);
+       font-family:Mulish,system-ui,sans-serif;font-size:17px;line-height:1.65;
+       display:flex;align-items:center;justify-content:center;padding:32px;
+       -webkit-font-smoothing:antialiased}
+  .gate{width:100%;max-width:420px}
+  .label{font-family:'Space Mono',monospace;text-transform:uppercase;
+         letter-spacing:.18em;font-size:11px;color:var(--ink-500);display:block}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:56px;
+     line-height:1;color:var(--ink-900);margin:16px 0 10px;letter-spacing:-.015em}
+  h1 em{font-style:italic;color:var(--clay-500)}
+  p.note{margin:0 0 26px;color:var(--ink-500);font-size:15.5px}
+  form{display:flex;gap:10px}
+  input{flex:1;font:inherit;font-family:'Space Mono',monospace;font-size:15px;
+        letter-spacing:.14em;text-transform:uppercase;
+        padding:13px 15px;border:1px solid var(--sand-300);border-radius:8px;
+        background:#fff;color:var(--ink-900);min-width:0}
+  input:focus{outline:2px solid var(--clay-500);outline-offset:2px;border-color:transparent}
+  button{font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.14em;
+         font-size:12px;padding:13px 20px;border:0;border-radius:8px;
+         background:var(--ink-900);color:var(--bone);cursor:pointer}
+  button:disabled{opacity:.5;cursor:default}
+  .msg{margin-top:16px;font-family:'Space Mono',monospace;font-size:11px;
+       letter-spacing:.14em;text-transform:uppercase;color:var(--clay-500);min-height:1.2em}
+  .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--sand-200)}
+</style>
+</head>
+<body>
+<div class="gate">
+  <span class="label">Ryan Nance &middot; Selected work</span>
+  <h1>Zero to <em>one</em></h1>
+  <p class="note">This page is not public. Enter the word you were sent.</p>
+  <form id="f" autocomplete="off">
+    <input id="p" type="password" name="passphrase" aria-label="Passphrase" autocomplete="off" spellcheck="false" autofocus>
+    <button id="b" type="submit">Enter</button>
+  </form>
+  <div class="msg" id="m" role="status" aria-live="polite"></div>
+  <div class="foot"><span class="label"><a href="https://ryantnance.com/" style="color:#2f6a8c">https://ryantnance.com/</a></span></div>
+</div>
+<script src="gate.js" defer></script>
+</body>
+</html>

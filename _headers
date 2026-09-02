@@ -24,3 +24,12 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'sha256-8qRgg2X0TKAX5Fb8Vuw6uwxl2gBW5d/II2nfAXBbKW0=' 'sha256-jNTuL9b//g3yzbdmobIBiMmyiZ3CCIy4T+SF6Blv3Ls=' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com; media-src 'self'; frame-src https://player.vimeo.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; upgrade-insecure-requests
+
+# The Ancestry follow-up page. Not linked from anywhere on the site and not
+# for indexing. Its body is AES-GCM ciphertext in payload.json; ancestry/gate.js
+# derives the key from the passphrase with PBKDF2 and rewrites the document.
+# No inline script, so the CSP above needs no new hash.
+/ancestry
+  X-Robots-Tag: noindex, nofollow, noarchive
+/ancestry/*
+  X-Robots-Tag: noindex, nofollow, noarchive
