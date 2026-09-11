@@ -1,0 +1,361 @@
+/* ============================================================
+   Quilt hero — component styles
+   Depends on css/desert-ds.css. Uses semantic tokens only, so the
+   panel follows the horizon gauge through all four palettes.
+   No new hex values. No new font families. No shadows.
+
+   Type comes from the system's roles, never a family by name:
+   --title-* for names and headlines, --label-* for words that label,
+   --body-font for prose, and --font-mono only for numbers and dates.
+
+   Brand colours are content, not style. Each case article carries
+   its own (data-brand-*), quilt.js hands them to the tile as
+   --brand-bg / --brand-fg / --brand-accent / --brand-edge, and
+   every rule here falls back to a Desert token when a case has none.
+   ============================================================ */
+
+/* one column: the lead above, the panel full width, the meta row below */
+.quilt-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+/* with JS off the mount stays empty; don't let it add a second gap */
+[data-quilt]:empty { display: none; }
+/* once the panel is built, the list it was built from steps aside */
+.quilt-on [data-quilt-source] { display: none; }
+
+.quilt-stage { display: flex; flex-direction: column; gap: var(--space-3); }
+
+/* ---- type roles used across the component ---- */
+.quilt-modes button,
+.quilt-label,
+.quilt-link {
+  font-family: var(--label-font);
+  font-weight: var(--label-weight);
+  letter-spacing: var(--label-tracking);
+  text-transform: var(--label-case, uppercase);
+}
+.quilt-num,
+.quilt-rule,
+.quilt-edge .quilt-n,
+.quilt-ticks b {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ---- arrangement control ---- */
+.quilt-modes { display: flex; align-items: baseline; gap: var(--space-5); flex-wrap: wrap; }
+
+.quilt-modes button {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  padding: 0 0 var(--space-1);
+  cursor: pointer;
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+.quilt-modes button:hover { color: var(--text-body); }
+.quilt-modes button[aria-pressed="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.quilt-modes button:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
+
+.quilt-modes .quilt-spacer { flex: 1 1 auto; }
+.quilt-modes .quilt-caption {
+  font-family: var(--label-font);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-faint);
+}
+
+/* ---- the panel ---- */
+.quilt {
+  --quilt-move: 700ms cubic-bezier(.19, .9, .22, 1);  /* the one value not in the system; see build prompt §7 */
+  position: relative;
+  aspect-ratio: 5 / 4;
+  max-height: 620px;
+  background: var(--bg-sunk);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+}
+
+/* year ruler, present only when the panel is arranged by time */
+.quilt-ticks { position: absolute; inset: 0; opacity: 0; transition: opacity 300ms ease; pointer-events: none; }
+.quilt[data-mode="timeline"] .quilt-ticks { opacity: 1; }
+.quilt-ticks i { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); }
+.quilt-ticks b {
+  position: absolute;
+  bottom: var(--space-1);
+  transform: translateX(4px);
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+/* ---- a piece, at any scale ----
+   --q-fg / --q-bg / --q-hi are the piece's own colours. Muted text and
+   hairlines are mixed from its foreground, so they hold on a black
+   card and a white one alike.                                         */
+.quilt-tile {
+  --q-bg: var(--brand-bg, var(--bg-raised));
+  --q-fg: var(--brand-fg, var(--text-strong));
+  --q-hi: var(--brand-accent, var(--accent));
+  position: absolute;
+  overflow: hidden;
+  color: var(--q-fg);
+  background: var(--q-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  transition:
+    left var(--quilt-move),
+    top var(--quilt-move),
+    width var(--quilt-move),
+    height var(--quilt-move),
+    border-color 300ms ease;
+}
+.quilt-tile:hover { border-color: var(--border-strong); }
+.quilt-tile[data-state="featured"] { border-color: var(--border-strong); }
+
+/* the piece's control: covers the tile, under the faces, which let clicks through */
+.quilt-hit {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.quilt-hit:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -3px; }
+
+/* a branded piece is edged by its own surface, and firms up from its own foreground */
+.quilt-tile[data-branded] { border-color: var(--q-bg); }
+.quilt-tile[data-branded]:hover,
+.quilt-tile[data-branded][data-state="featured"] { border-color: color-mix(in srgb, var(--q-fg) 30%, var(--q-bg)); }
+
+/* the brand's signature colour as a rule across the top, when it isn't the surface */
+.quilt-tile[data-edge]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--brand-edge);
+  pointer-events: none;
+}
+
+/* frame: an inset hairline, for a brand whose mark is a square frame.
+   The card's text moves in with it so nothing sits on the line.      */
+.quilt-tile[data-motif="frame"]::after {
+  content: "";
+  position: absolute;
+  inset: var(--space-2);
+  border: 1px solid color-mix(in srgb, var(--q-fg) 55%, transparent);
+  pointer-events: none;
+}
+.quilt-tile[data-motif="frame"] .quilt-mid { padding: var(--space-5); }
+/* a collapsed edge is too thin to hold a frame around its label */
+.quilt-tile[data-motif="frame"][data-state="bar"]::after,
+.quilt-tile[data-motif="frame"][data-state="sliver"]::after { display: none; }
+
+/* faces: exactly one is visible per state */
+.quilt-face, .quilt-mid, .quilt-band, .quilt-mark, .quilt-edge {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+.quilt-tile[data-state="featured"] .quilt-face { opacity: 1; transition-delay: 60ms; }
+.quilt-tile[data-state="card"] .quilt-mid { opacity: 1; transition-delay: 120ms; }
+.quilt-tile[data-state="band"] .quilt-band,
+.quilt-tile[data-state="band"] .quilt-mark { opacity: 1; transition-delay: 120ms; }
+.quilt-tile[data-state="bar"] .quilt-edge-h { opacity: 1; }
+.quilt-tile[data-state="sliver"] .quilt-edge-v { opacity: 1; }
+
+/* small words and numbers on a piece */
+.quilt-label,
+.quilt-num {
+  font-size: var(--text-xs);
+  color: color-mix(in srgb, var(--q-fg) 72%, transparent);   /* 72% holds 4.5:1 on the bluest surface */
+}
+
+/* the link out to the case study; live only on the face that is showing */
+.quilt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-bottom: 2px;
+  font-size: var(--text-xs);
+  color: var(--q-fg);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--q-fg) 45%, transparent);
+  pointer-events: none;
+}
+.quilt-tile[data-state="featured"] .quilt-face .quilt-link,
+.quilt-tile[data-state="card"] .quilt-mid .quilt-link { pointer-events: auto; }
+.quilt-link:hover { border-bottom-color: var(--q-fg); }
+.quilt-link:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
+.quilt-arrow { transition: transform 250ms ease; }
+.quilt-link:hover .quilt-arrow { transform: translateX(4px); }
+
+/* logos: each scale sets --logo-h; quilt.js sets --logo-k from the file's
+   shape, so a wide wordmark and a square mark carry the same weight     */
+.quilt-logo {
+  display: block;
+  width: auto;
+  height: calc(var(--logo-h) * var(--logo-k, 1));
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* featured */
+.quilt-face {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-6);
+}
+.quilt-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.quilt-face .quilt-logo { --logo-h: 40px; max-width: 60%; }
+.quilt-face h3 {
+  font-family: var(--title-font);
+  font-weight: var(--title-weight);
+  font-size: clamp(28px, 3.4vw, var(--text-3xl));
+  line-height: var(--title-leading);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+  margin: 0 0 var(--space-3);
+  max-width: 18ch;
+}
+.quilt-face p {
+  font-family: var(--body-font);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: color-mix(in srgb, var(--q-fg) 82%, transparent);
+  margin: 0;
+  max-width: 40ch;
+  text-wrap: pretty;
+}
+.quilt-metric { display: flex; align-items: baseline; gap: var(--space-3); margin-top: var(--space-5); }
+.quilt-metric b {
+  font-family: var(--title-font);
+  font-weight: var(--title-weight);
+  font-size: var(--text-2xl);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--q-hi);
+  font-variant-numeric: tabular-nums;
+}
+
+/* card: readable, but not the piece in hand */
+.quilt-mid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-3);
+}
+.quilt-mid .quilt-logo { --logo-h: 26px; margin: var(--space-1) 0 var(--space-2); }
+.quilt-mid .quilt-link { align-self: flex-start; margin-top: var(--space-1); white-space: nowrap; }
+.quilt-mid h4 {
+  font-family: var(--title-font);
+  font-weight: var(--title-weight);
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+.quilt-mid p {
+  font-family: var(--body-font);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: color-mix(in srgb, var(--q-fg) 82%, transparent);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.quilt-mid .quilt-rule {
+  margin-top: auto;
+  padding-top: var(--space-2);
+  border-top: 1px solid color-mix(in srgb, var(--q-fg) 20%, transparent);
+  font-size: var(--text-xs);
+  color: var(--q-hi);
+}
+
+/* band: one piece as a length of time. The band is drawn at its true length,
+   so the name sits beside it rather than inside; quilt.js picks the side.
+   The band itself carries the brand: its surface, and its logo if one fits. */
+.quilt-tile[data-state="band"] { overflow: visible; }
+.quilt-tile[data-state="band"] .quilt-face,
+.quilt-tile[data-state="band"] .quilt-mid,
+.quilt-tile[data-state="band"] .quilt-edge { visibility: hidden; }
+.quilt-band {
+  display: flex;
+  align-items: center;
+  left: 100%;
+  right: auto;
+  width: max-content;
+  padding: 0 var(--space-3);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.quilt-tile[data-side="left"] .quilt-band { left: auto; right: 100%; }
+.quilt-band h4 {
+  font-family: var(--title-font);
+  font-weight: var(--title-weight);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);   /* it sits on the panel, not on the piece */
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.quilt-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-3);
+}
+.quilt-mark .quilt-logo { --logo-h: 22px; max-height: 100%; object-position: center; }
+
+/* collapsed edges: a number and a name */
+.quilt-edge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-3);
+  white-space: nowrap;
+  font-family: var(--label-font);
+  font-weight: var(--label-weight);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+}
+.quilt-edge .quilt-n { color: var(--q-hi); }
+.quilt-edge-v { writing-mode: vertical-rl; flex-direction: column; justify-content: flex-start; padding: var(--space-3) 0; }
+
+@media (max-width: 820px) {
+  .quilt-hero { gap: var(--space-5); }
+  .quilt { aspect-ratio: 4 / 5; max-height: none; }
+  .quilt-face { padding: var(--space-5); }
+  /* a phone-width card (about 106px) can't hold its description and its link
+     without cutting a line in half; the featured face still carries it */
+  .quilt-mid p { display: none; }
+  /* nor a frame around its link */
+  .quilt-tile[data-motif="frame"][data-state="card"]::after { display: none; }
+  .quilt-tile[data-motif="frame"] .quilt-mid { padding: var(--space-4) var(--space-3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quilt-tile, .quilt-face, .quilt-mid, .quilt-band, .quilt-mark, .quilt-edge, .quilt-ticks, .quilt-arrow { transition-duration: 1ms; }
+}
