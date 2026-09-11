@@ -1,0 +1,11 @@
+# Wrangler uploads this whole folder as the site (assets.directory is "." in
+# wrangler.jsonc), tracked or not. Anything not listed here is public.
+.assetsignore
+.git
+.gitignore
+.wrangler
+.dev.vars*
+.env*
+.DS_Store
+wrangler.jsonc
+README.md
