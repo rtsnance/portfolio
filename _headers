@@ -17,12 +17,7 @@
 # silently refuse to run it (analytics stops; the page renders Desert Day for
 # a frame and flashes white at every dark hour). Recompute with:
 #   printf '%s' '<exact script text>' | openssl dgst -sha256 -binary | openssl base64
-#
-# !! STAGING BRANCH ONLY (quilt-hero): the X-Robots-Tag line below keeps the
-# workers.dev preview URL out of search. Remove it before merging to main, or
-# production goes noindex.
 /*
-  X-Robots-Tag: noindex, nofollow
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
