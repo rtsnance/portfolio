@@ -26,6 +26,7 @@
     Y_PAD:      1,     // years of air either side of the timeline axis
     TICK_STEP:  2,     // years between ruler ticks
     CYCLE:   4200,     // one beat of the opening sequence, ms. 0 skips it.
+    HOVER:    100,     // ms the pointer must rest on a tile before it features
     LOGO_ASPECT: 3.5,  // a logo this wide-to-tall renders at its scale's base height
     LOGO_K: [0.7, 1.8] // how far squarer or wider logos may grow or shrink from that
   };
@@ -343,7 +344,15 @@
       feature(i);
     });
     hit.addEventListener("focus", function () { touch(); if (mode === "quilt") { feature(i); } });
-    t.addEventListener("mouseenter", function () { if (touched && mode === "quilt") { feature(i); } });
+    // Hover waits a beat. Featuring a tile moves its neighbours under a
+    // resting pointer, and without the pause each one it lands on fires in
+    // turn, so a single crossing ripples through the whole panel.
+    t.addEventListener("mouseenter", function () {
+      if (!touched || mode !== "quilt") { return; }
+      clearTimeout(hoverTimer);
+      hoverTimer = setTimeout(function () { feature(i); }, THEME.HOVER);
+    });
+    t.addEventListener("mouseleave", function () { clearTimeout(hoverTimer); });
 
     panel.appendChild(t);
     return rec;
@@ -363,6 +372,7 @@
   var featured = 0;
   var touched = false;
   var timer = null;
+  var hoverTimer = null;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function touch() {
