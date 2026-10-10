@@ -116,6 +116,9 @@
 }
 .quilt-tile:hover { border-color: var(--border-strong); }
 .quilt-tile[data-state="featured"] { border-color: var(--border-strong); }
+/* the piece coming forward travels over the ones making room for it */
+.quilt-tile[data-state="featured"] { z-index: 2; }
+.quilt-tile[data-state="card"] { z-index: 1; }
 
 /* the piece's control: covers the tile, under the faces, which let clicks through */
 .quilt-hit {
@@ -162,20 +165,24 @@
 .quilt-tile[data-motif="frame"][data-state="bar"]::after,
 .quilt-tile[data-motif="frame"][data-state="sliver"]::after { display: none; }
 
-/* faces: exactly one is visible per state */
+/* faces: exactly one is visible per state.
+   The outgoing face leaves at once, before the tile has moved far, and the
+   incoming one waits until the move has nearly landed. A face is laid out
+   at the tile's live size, so one shown mid-move rewraps on every frame
+   and two shown at once read as a ghost.                                */
 .quilt-face, .quilt-mid, .quilt-band, .quilt-mark, .quilt-edge {
   position: absolute;
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 260ms ease;
+  transition: opacity 90ms ease;
 }
-.quilt-tile[data-state="featured"] .quilt-face { opacity: 1; transition-delay: 60ms; }
-.quilt-tile[data-state="card"] .quilt-mid { opacity: 1; transition-delay: 120ms; }
+.quilt-tile[data-state="featured"] .quilt-face,
+.quilt-tile[data-state="card"] .quilt-mid,
 .quilt-tile[data-state="band"] .quilt-band,
-.quilt-tile[data-state="band"] .quilt-mark { opacity: 1; transition-delay: 120ms; }
-.quilt-tile[data-state="bar"] .quilt-edge-h { opacity: 1; }
-.quilt-tile[data-state="sliver"] .quilt-edge-v { opacity: 1; }
+.quilt-tile[data-state="band"] .quilt-mark { opacity: 1; transition: opacity 280ms ease 340ms; }
+.quilt-tile[data-state="bar"] .quilt-edge-h,
+.quilt-tile[data-state="sliver"] .quilt-edge-v { opacity: 1; transition: opacity 200ms ease 220ms; }
 
 /* small words and numbers on a piece */
 .quilt-label,
@@ -357,5 +364,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .quilt-tile, .quilt-face, .quilt-mid, .quilt-band, .quilt-mark, .quilt-edge, .quilt-ticks, .quilt-arrow { transition-duration: 1ms; }
+  .quilt-tile, .quilt-face, .quilt-mid, .quilt-band, .quilt-mark, .quilt-edge, .quilt-ticks, .quilt-arrow { transition-duration: 1ms !important; transition-delay: 0s !important; }
 }

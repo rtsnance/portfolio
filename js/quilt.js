@@ -26,7 +26,8 @@
     Y_PAD:      1,     // years of air either side of the timeline axis
     TICK_STEP:  2,     // years between ruler ticks
     CYCLE:   4200,     // one beat of the opening sequence, ms. 0 skips it.
-    HOVER:    100,     // ms the pointer must rest on a tile before it features
+    HOVER:    160,     // ms the pointer must rest on a tile before it features
+    SETTLE:   600,     // ms after a rearrangement before hover may start another
     LOGO_ASPECT: 3.5,  // a logo this wide-to-tall renders at its scale's base height
     LOGO_K: [0.7, 1.8] // how far squarer or wider logos may grow or shrink from that
   };
@@ -344,15 +345,21 @@
       feature(i);
     });
     hit.addEventListener("focus", function () { touch(); if (mode === "quilt") { feature(i); } });
-    // Hover waits a beat. Featuring a tile moves its neighbours under a
-    // resting pointer, and without the pause each one it lands on fires in
-    // turn, so a single crossing ripples through the whole panel.
-    t.addEventListener("mouseenter", function () {
-      if (!touched || mode !== "quilt") { return; }
+    // Hover answers the pointer moving, never a tile moving. Featuring a
+    // tile slides its neighbours under a resting pointer; if that counted,
+    // each one it landed on would fire in turn and a single crossing would
+    // ripple through the whole panel. So: only real pointer movement, only
+    // once the last rearrangement has settled, and only after a beat.
+    t.addEventListener("pointermove", function (e) {
+      if (!touched || mode !== "quilt" || e.pointerType !== "mouse") { return; }
+      if (featured === i || hoverTarget === i || Date.now() < settledAt) { return; }
       clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(function () { feature(i); }, THEME.HOVER);
+      hoverTarget = i;
+      hoverTimer = setTimeout(function () { hoverTarget = -1; feature(i); }, THEME.HOVER);
     });
-    t.addEventListener("mouseleave", function () { clearTimeout(hoverTimer); });
+    t.addEventListener("pointerleave", function () {
+      if (hoverTarget === i) { clearTimeout(hoverTimer); hoverTarget = -1; }
+    });
 
     panel.appendChild(t);
     return rec;
@@ -373,6 +380,8 @@
   var touched = false;
   var timer = null;
   var hoverTimer = null;
+  var hoverTarget = -1;
+  var settledAt = 0;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function touch() {
@@ -397,6 +406,7 @@
   }
 
   function paint() {
+    settledAt = Date.now() + THEME.SETTLE;
     var boxes = arrange(mode, featured);
     var panelW = panel.clientWidth;
     drawTicks(boxes.axis);
